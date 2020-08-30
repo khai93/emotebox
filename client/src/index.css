@@ -1,3 +1,12 @@
+:root {
+  --purple: #7289DA;
+  --white: #ffffff;
+  --grey: #99AAB5;
+  --lightdark: #2C2F33;
+  --dark: #23272A;
+  --reallydark: #000000;
+}
+
 body {
   margin: 0;
   padding: 0;
