@@ -2,4 +2,6 @@
     background-color: var(--lightdark);
     width: 100%;
     height: 100vh;
+    justify-content: center;
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {AuthHelper, DiscordHelper} from "../../helpers"
-import {Navbar} from '../shared'
+import {Navbar, SearchBar} from '../shared'
 import './home.css'
 
 function Home() { 
@@ -18,10 +18,13 @@ function Home() {
     }, [])
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
-
+    const handleSearch = (e) => {
+        e.preventDefault();
+    }
     return (
         <div className="home__main">
             <Navbar userAvatar={userAvatar}></Navbar>
+            <SearchBar handleClick={handleSearch}></SearchBar>
             <h2>Hello {user.username}!</h2>
         </div>
     )
