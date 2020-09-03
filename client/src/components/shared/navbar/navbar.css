@@ -1,0 +1,37 @@
+
+.navbar__menu {
+    list-style-type: none;
+}
+
+.navbar__logo {
+    font-size: 24px;
+    padding: 7.5px 10px 7.5px 0;
+}
+
+.navbar__item {
+    padding: 10px;
+}
+
+/* Mobile menu */
+.navbar__menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__menu li a {
+    display: block;
+    padding: 15px 5px;
+}
+
+.navbar__menu.navbar__subitem a {
+    padding: 15px;
+}
+
+.navbar_item {
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
