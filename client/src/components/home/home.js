@@ -20,7 +20,7 @@ function Home() {
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
 
     return (
-        <div>
+        <div className="home__main">
             <Navbar userAvatar={userAvatar}></Navbar>
             <h2>Hello {user.username}!</h2>
         </div>

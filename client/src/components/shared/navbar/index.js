@@ -12,10 +12,10 @@ function Navbar(props) {
     const userAvatar = props.userAvatar
     return (
         <nav>
+            <div className="navbar__logo">
+                <img src={logo} className="App-logo" alt="logo" />
+            </div>
             <ul className="navbar__menu">
-                <li className="navbar__logo">
-                    <img src={logo} className="App-logo" alt="logo" />
-                </li>
                 <li className="navbar__item">
                     <Link to="/create">
                         <SearchIcon className="navbar__icon" style={{ color: 'white' }}/>
