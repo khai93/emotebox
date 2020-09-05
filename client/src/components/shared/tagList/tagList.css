@@ -1,0 +1,15 @@
+.taglist__list {
+    list-style: none;
+    list-style-position: inside;
+    padding: 0;
+}
+
+.taglist__list > li {
+    margin: 0;
+    display: inline-block;
+    *display: inline;
+    padding: 0;
+}
+
+
+
