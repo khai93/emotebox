@@ -1,0 +1,39 @@
+.searchResultItem__btn {
+    border: 1px solid var(--dark);
+    padding: 50px 25px;
+    height: 150px;
+    width: 100%;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.searchResultItem__btn:not(.searchResultItem__pack):hover {
+    border: 1px solid var(--white);
+}
+
+.searchResultItem__outter {
+    width: 150px;
+    margin: 10px;
+    display: inline-block;
+    *display: inline;
+}
+
+.searchResultItem__img {
+    width: 50px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.searchResultItem__pack {
+    border: 1px solid var(--purple);
+    color: var(--purple);
+}
+
+.searchResultItem__pack:hover {
+    background-color: var(--purple);
+    color: var(--white);
+}
+
