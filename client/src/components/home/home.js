@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {AuthHelper, DiscordHelper} from "../../helpers"
-import {Navbar, SearchBar} from '../shared'
+import {Navbar, SearchBar, TagList} from '../shared'
 import './home.css'
 
 function Home() { 
@@ -25,6 +25,7 @@ function Home() {
         <div className="home__main">
             <Navbar userAvatar={userAvatar}></Navbar>
             <SearchBar handleClick={handleSearch}></SearchBar>
+            <TagList />
             <h2>Hello {user.username}!</h2>
         </div>
     )
