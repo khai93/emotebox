@@ -24,8 +24,16 @@ function Navbar(props) {
                 <li className="navbar__item">
                     <NotificationsIcon className="navbar__icon" style={{ color: 'white' }}/>
                 </li>
-                <li className="navbar__item">
+                <li className="navbar__item navbar__avatar">
                     <Avatar userAvatar={userAvatar}></Avatar>
+                    <div class="navbar__dropdownContent">
+                        <Link className="navbar__dropdownLink" to="/settings">
+                            Account Settings
+                        </Link>
+                        <Link className="navbar__dropdownLink" to="/logout">
+                            Log Out
+                        </Link>
+                    </div>
                 </li>
             </ul>
         </nav>
