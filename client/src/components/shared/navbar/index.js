@@ -10,6 +10,8 @@ import "./navbar.css"
 
 function Navbar(props) {
     const userAvatar = props.userAvatar
+    
+    const logoutUrl = window.location.protocol + "//" + window.location.hostname + ":5000/api/auth/signout";
     return (
         <nav>
             <div className="navbar__logo">
@@ -30,9 +32,9 @@ function Navbar(props) {
                         <Link className="navbar__dropdownLink" to="/settings">
                             Account Settings
                         </Link>
-                        <Link className="navbar__dropdownLink" to="/logout">
+                        <a href={logoutUrl} className="navbar__dropdownLink">
                             Log Out
-                        </Link>
+                        </a>
                     </div>
                 </li>
             </ul>

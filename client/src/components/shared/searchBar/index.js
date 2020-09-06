@@ -14,9 +14,7 @@ function SearchBar(props) {
                     <Icon className="searchBar__icon">search</Icon>
                 </div>    
                 <input type="submit" style={{display:"none"}}></input>
-                
             </form>
-            
         </div>
     )
 }
