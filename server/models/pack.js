@@ -18,5 +18,7 @@ const Pack = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.Model('Pack', Pack);
+Pack.index({'$**': 'text'});
+
+module.exports = mongoose.model('Pack', Pack);
 module.exports.Schema = Pack;

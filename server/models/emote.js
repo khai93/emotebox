@@ -16,5 +16,7 @@ const Emote = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.Model('Emote', Emote);
+Emote.index({'$**': 'text'});
+
+module.exports = mongoose.model('Emote', Emote);
 module.exports.Schema = Emote;
