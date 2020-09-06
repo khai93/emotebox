@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const passport = require('passport');
+const {CheckAuth} = require("../../../middlewares/");
 const config = require("../../../config");
 const { json } = require('body-parser');
 const route = Router();
@@ -16,12 +17,7 @@ module.exports = async (app) => {
         req.logout();
         res.redirect(config.publicURL + "/login");
     });
-    route.get("/user", checkAuth, (req, res) => {
+    route.get("/user", CheckAuth, (req, res) => {
         res.json(req.user);
     });
-}
-
-function checkAuth(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.sendStatus(401)
 }
