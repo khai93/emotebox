@@ -32,4 +32,16 @@ EmoteController.searchByText = (query) => {
     return EmoteService.searchByText(searchTerm, startAt, limit);
 }
 
+EmoteController.create = (name, imagePath, tags) => {
+    if (!name) {
+        throw new Error("Emote name cannot be null");
+    }
+
+    if (!imagePath) {
+        throw new Error("Image path cannot be null");
+    }
+
+    return EmoteService.create(name, imagePath, tags || []);
+}
+
 module.exports = EmoteController;
