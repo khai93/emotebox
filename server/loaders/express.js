@@ -32,7 +32,6 @@ module.exports = async (app) => {
   app.head('/status', (req, res) => { res.status(200).end(); });
   app.enable('trust proxy');
   
-  app.use('/uploads', express.static(path.join(__dirname, 'server/uploads')))
   app.use(cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
