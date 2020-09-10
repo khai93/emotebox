@@ -1,12 +1,12 @@
-const S3 = {}
+const S3Model = {}
 
-S3.load = (client) => {
-    S3.client = client;
+S3Model.load = (client) => {
+    S3Model.client = client;
 }
 
-S3.upload = async (params) => {
+S3Model.upload = async (params) => {
     return new Promise((resolve, reject) => {
-        S3.client.upload(params, (err, data) => {
+        S3Model.client.upload(params, (err, data) => {
             if (err) {
                 reject(err)
             }
@@ -16,9 +16,9 @@ S3.upload = async (params) => {
     })
 }
 
-S3.get = async (params) => {
+S3Model.get = async (params) => {
     return new Promise((resolve, reject) => {
-        S3.client.getObject(params, (err, data) => {
+        S3Model.client.getObject(params, (err, data) => {
             if (err) {
                 reject(err)
             }
@@ -28,4 +28,4 @@ S3.get = async (params) => {
     })
 }
  
-module.exports = S3;
+module.exports = S3Model;
