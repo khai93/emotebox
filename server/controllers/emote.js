@@ -1,4 +1,5 @@
 const { EmoteService } = require("../services/");
+const S3Controller = require("./s3");
 
 const EmoteController = {}
 
@@ -30,6 +31,24 @@ EmoteController.searchByText = (query) => {
     }
 
     return EmoteService.searchByText(searchTerm, startAt, limit);
+}
+
+EmoteController.create = async (name, imagePath, tags) => {
+    if (!name) {
+        throw new Error("Emote name cannot be null");
+    }
+
+    if (!imagePath) {
+        throw new Error("An image file must be supplied");
+    }
+
+    try {
+        const upload = await S3Controller.uploadFile(imagePath);
+
+        return EmoteService.create(name, upload.Location, tags || []);
+    } catch (e) {
+        throw new Error(e);
+    }
 }
 
 module.exports = EmoteController;

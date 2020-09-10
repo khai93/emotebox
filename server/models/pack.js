@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.ObjectId;
 
 const Pack = mongoose.Schema(
     {
@@ -7,7 +8,8 @@ const Pack = mongoose.Schema(
             required: true
         },
         likes: {
-            type: Number
+            type: Number,
+            default: 0
         },
         tags: {
             type: [String]
