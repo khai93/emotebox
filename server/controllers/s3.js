@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { S3Service } = require("../services");
 const config = require("../config");
+const { Base64Helper } = require("../helpers");
 const randtoken = require('rand-token');
 
 const S3Controller = {}
@@ -28,6 +29,20 @@ S3Controller.uploadFile = (source) => {
             }
         
         })
+    })
+}
+
+S3Controller.retrieveImage = (filename, res) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const file = await S3Controller.retrieveFile(filename);
+
+            res.write(file.Body, 'binary');
+            res.end(null, 'binary');
+        
+        } catch(e) {
+            reject(e);
+        }
     })
 }
 

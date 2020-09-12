@@ -19,6 +19,6 @@ module.exports = async (app) => {
 
     route.post("/create", upload.single('emote_file'), ch(EmoteController.create, (req, res, next) => [req.body.emoteName, req.file.path, req.body.tags]))
 
-    route.get("/images/:filename", ch(S3Controller.retrieveFile, (req, res, next) => [req.params.filename]))
+    route.get("/images/:filename", ch(S3Controller.retrieveImage, (req, res, next) => [req.params.filename, res]))
 }
 
