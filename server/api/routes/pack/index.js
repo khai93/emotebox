@@ -10,7 +10,7 @@ const multer = require("multer");
 module.exports = async (app) => {
     app.use("/packs", route);
 
-    route.get("/:id", ch(PackController.getById, (req, res, next) => [req.params.id]))
+    route.get("/id/:id", ch(PackController.getById, (req, res, next) => [req.params.id]))
 
     route.get("/search/", ch(PackController.searchByText, (req, res, next) => [req.query]))
 

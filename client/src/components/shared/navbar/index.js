@@ -29,7 +29,7 @@ function Navbar(props) {
                 </li>
                 <li className="navbar__item navbar__avatar">
                     <Avatar userAvatar={userAvatar}></Avatar>
-                    <div class="navbar__dropdownContent">
+                    <div className="navbar__dropdownContent">
                         <Link className="navbar__dropdownLink" to="/settings">
                             Account Settings
                         </Link>

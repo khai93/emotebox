@@ -23,8 +23,8 @@ PackController.searchByText = (query) => {
     }
     
 
-    const limit = query.limit || 25;
-    const startAt = query.startAt || 0;
+    const limit = parseInt(query.limit) || 25;
+    const startAt = parseInt(query.startAt) || 0;
     const searchTerm = query.searchTerm;
 
     if (typeof searchTerm == 'undefined' || searchTerm === '') {

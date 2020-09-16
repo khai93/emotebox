@@ -9,7 +9,6 @@ function Home() {
     useEffect(() => {
         async function fetchData() {
             const userRes = await AuthHelper.getAuthenticatedUser();
-            console.log(userRes)
             setUser(userRes);
         }
 
@@ -18,13 +17,19 @@ function Home() {
     }, [])
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
-    const handleSearch = (e) => {
+    const handleSearch = (e, inputValue) => {
         e.preventDefault();
+        console.log(inputValue)
     }
+
+    const fetchSearchData = (input) => {
+        
+    }
+
     return (
         <div className="home__main">
             <Navbar userAvatar={userAvatar}></Navbar>
-            <SearchBar handleClick={handleSearch}></SearchBar>
+            <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList />
             <SearchResultList></SearchResultList>
         </div>
