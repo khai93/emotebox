@@ -19,5 +19,8 @@ To run this project, install it locally
 git clone https://github.com/khai93/emotebox.git
 cd emotebox
 yarn
+cd client
+yarn
+cd ..
 yarn dev
 ```
