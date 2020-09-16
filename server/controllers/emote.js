@@ -35,18 +35,21 @@ EmoteController.searchByText = (query) => {
 }
 
 EmoteController.create = async (name, imageKey, tagsParam) => {
-    if (!name) {
+    if (typeof name == 'undefined' || !name) {
         throw new Error("Emote name cannot be null");
     }
 
-    if (!imageKey) {
+    if (typeof imageKey == 'undefined' || !imageKey) {
         throw new Error("An image file must be supplied");
+    }
+
+    if (!tags || Object.keys(tags).length === 0) {
+        throw new Error("Tags must be supplied in order to create");
     }
 
     let tags = tagsParam;
 
-
-
+    // POSTMAN MIGHT SEND AS STRING
     if (typeof tagsParam == "string") {
         try {
             tags = JSON.parse(tagsParam);

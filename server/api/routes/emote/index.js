@@ -13,7 +13,7 @@ const upload = multer({
 module.exports = async (app) => {
     app.use("/emotes", route);
 
-    route.get("/:id", ch(EmoteController.getEmoteById, (req, res, next) => [req.params.id]))
+    route.get("/:id", ch(EmoteController.getById, (req, res, next) => [req.params.id]))
 
     route.get("/search/", ch(EmoteController.searchByText, (req, res, next) => [req.query]))
 

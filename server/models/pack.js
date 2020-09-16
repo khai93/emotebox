@@ -7,7 +7,7 @@ const Pack = mongoose.Schema(
             type: String,
             required: true
         },
-        likes: {
+        installs: {
             type: Number,
             default: 0
         },

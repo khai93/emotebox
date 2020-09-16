@@ -1,3 +1,4 @@
+const { TagFaces } = require("@material-ui/icons");
 const { PackService } = require("../services/");
 
 const PackController = {}
@@ -31,6 +32,34 @@ PackController.searchByText = (query) => {
     }
 
     return PackService.searchByText(searchTerm, startAt, limit);
+}
+
+PackController.create = (name, tagsParam) => {
+    if (typeof name == 'undefined' || name === '') {
+        throw new Error("Name must be supplied in order to create");
+    }
+
+    if (!tags || Object.keys(tags).length === 0) {
+        throw new Error("Tags must be supplied in order to create");
+    }
+
+    if (!emotes || Object.keys(emotes).length === 0) {
+        throw new Error("Emotes must be supplied in order to create");
+    }
+
+    let tags;
+
+    // POSTMAN MIGHT SEND AS STRING
+    if (typeof tagsParam == "string") {
+        try {
+            tags = JSON.parse(tagsParam);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    return PackService.create(name, tags);
+
 }
 
 
