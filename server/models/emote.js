@@ -10,6 +10,10 @@ const Emote = mongoose.Schema(
             type: String,
             required: true
         },
+        installs: {
+            type: Number,
+            default: 0
+        },
         tags: {
             type: [String]
         }
