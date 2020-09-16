@@ -1,4 +1,3 @@
-const { TagFaces } = require("@material-ui/icons");
 const { PackService } = require("../services/");
 
 const PackController = {}
