@@ -12,6 +12,7 @@ function Navbar(props) {
     const userAvatar = props.userAvatar
     
     const logoutUrl = window.location.protocol + "//" + window.location.hostname + ":5000/api/auth/signout";
+
     return (
         <nav>
             <div className="navbar__logo">

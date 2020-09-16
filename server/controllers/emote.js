@@ -34,16 +34,22 @@ EmoteController.searchByText = (query) => {
     return EmoteService.searchByText(searchTerm, startAt, limit);
 }
 
-EmoteController.create = async (name, imageKey, tagsParam) => {
+EmoteController.create = async (user, name, imageFile, tagsParam) => {
     if (typeof name == 'undefined' || !name) {
         throw new Error("Emote name cannot be null");
     }
 
-    if (typeof imageKey == 'undefined' || !imageKey) {
+    if (typeof imageFile == 'undefined' || !imageFile) {
         throw new Error("An image file must be supplied");
     }
 
-    if (!tags || Object.keys(tags).length === 0) {
+    if (!imageFile.hasOwnProperty("path")) {
+        throw new Error("Something unexpected happened while retrieving file path");
+    }
+
+    const imagePath = imageFile.path
+
+    if (!tagsParam || Object.keys(tagsParam).length === 0) {
         throw new Error("Tags must be supplied in order to create");
     }
 
@@ -59,7 +65,7 @@ EmoteController.create = async (name, imageKey, tagsParam) => {
     }
 
     try {
-        const upload = await S3Controller.uploadFile(imageKey);
+        const upload = await S3Controller.uploadFile(imagePath);
 
         const split = upload.Location.split("emotes/");
 
@@ -67,7 +73,7 @@ EmoteController.create = async (name, imageKey, tagsParam) => {
             throw new Error("Unexpected upload location");
         }
 
-        return EmoteService.create(name, upload.Location.split("emotes/")[1], tags || []);
+        return EmoteService.create(name, upload.Location.split("emotes/")[1], tags || [], user.id);
     } catch (e) {
         throw new Error(e);
     }

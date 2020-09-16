@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {ControllerHandler: ch} = require("../../../middlewares")
+const {ControllerHandler: ch, CheckAuth} = require("../../../middlewares")
 const {PackController} = require("../../../controllers");
 const config = require("../../../config");
 const route = Router();
@@ -14,6 +14,6 @@ module.exports = async (app) => {
 
     route.get("/search/", ch(PackController.searchByText, (req, res, next) => [req.query]))
 
-    route.post("/create", ch(PackController.create, (req, res, next) => [req.body.packName, req.body.tags]))
+    route.post("/create",  CheckAuth, ch(PackController.create, (req, res, next) => [req.user, req.body.packName, req.body.tags]))
 }
 

@@ -16,7 +16,11 @@ const Pack = mongoose.Schema(
         },
         emotes: [
             {type: ObjectId, ref: 'Emote'}
-        ]
+        ],
+        owner_id : {
+            type: String,
+            required: true
+        }
     }
 )
 
