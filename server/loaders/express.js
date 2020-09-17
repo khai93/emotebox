@@ -15,11 +15,11 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new Strategy({
-  clientID: config.clientID,
-  clientSecret: config.clientSecret,
-  callbackURL: config.baseURL + config.api.prefix + "/auth/discord-callback",
-  scope: config.scopes,
-  prompt: config.prompt
+  clientID: config.discord.clientID,
+  clientSecret: config.discord.clientSecret,
+  callbackURL: config.api.baseURL + config.api.prefix + "/auth/discord-callback",
+  scope: config.discord.scopes,
+  prompt: config.discord.prompt
 }, function(accessToken, refreshToken, profile, done) {
   process.nextTick(function() {
       return done(null, profile)
