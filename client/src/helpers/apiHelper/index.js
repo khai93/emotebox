@@ -1,17 +1,32 @@
 
 const ApiHelper = {}
 
-ApiHelper.searchEmotesByText = (startAt, input) => {
-    return fetch(`/api/emotes/search?limit=25&startAt=${startAt}&searchTerm=${input}`)
+ApiHelper.searchEmotesByText = (limit, startAt, input) => {
+    return fetch(`/api/emotes/search?limit=${limit}&startAt=${startAt}&searchTerm=${input}`)
         .then(res => {
             return res.json()
         })
-        .then((userRes) => {
-            return userRes;
+        .then((json) => {
+            return json;
         },
         (error) => {
             throw new Error(error)
         })
 } 
+
+ApiHelper.searchPacksByText = (limit, startAt, input) => {
+    return fetch(`/api/packs/search?limit=${limit}&startAt=${startAt}&searchTerm=${input}`)
+        .then(res => {
+            return res.json();
+        })
+        .then((json) => {
+            return json;
+        },
+        (error) => {
+            throw new Error(error)
+        })
+} 
+
+ApiHelper.getImageFromKey = (imageKey) => window.location.protocol + "//" + window.location.hostname + ":5000/api/emotes/images/" + imageKey;
 
 export { ApiHelper as default }

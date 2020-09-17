@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchResultItem from '../searchResultItem'
 
 import './searchResultList.css'
 
-function SearchResultList(resultsData) {
-    const [results, setResults] = useState(resultsData);
+function SearchResultList(props) {
+
+    
+
+    const [results, setResults] = useState([]);
+
+    useEffect(() => {
+        const resultsData = props.resultsData;
+        setResults(resultsData);
+    })
 
     const resultList = results.map( r => <SearchResultItem itemData={r} key={r._id} />)
 
