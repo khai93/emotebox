@@ -3,21 +3,9 @@ import {AuthHelper, DiscordHelper, ApiHelper} from "../../helpers"
 import {Navbar, SearchBar, TagList, SearchResultList} from '../shared'
 import './home.css'
 
-function Home() { 
-    const [user, setUser] = useState({});
+function Home(props) { 
+    const user = props.user;
     const [results, setResults] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const userRes = await AuthHelper.getAuthenticatedUser();
-            setUser(userRes);
-        }
-
-        
-
-        // TODO: HANDLE THROWN ERROR IF IT COULD NOT GET THE USER
-        fetchData()
-    }, [])
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
     const handleSearch = (e, inputValue) => {

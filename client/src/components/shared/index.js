@@ -5,6 +5,7 @@ import Tag from './tag'
 import TagList from './tagList'
 import SearchResultList from './searchResultList'
 import SearchResultItem from './searchResultItem'
+import AuthCheck from './authCheck'
 
 export {
     Navbar,
@@ -13,5 +14,6 @@ export {
     Tag,
     TagList,
     SearchResultList,
-    SearchResultItem
+    SearchResultItem,
+    AuthCheck
 }
