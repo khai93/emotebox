@@ -1,7 +1,7 @@
 import React from 'react'
 import Avatar from "../avatar"
 import {
-    Search as SearchIcon, 
+    LibraryAdd as LibraryAddIcon, 
     Notifications as NotificationsIcon
 } from '@material-ui/icons/';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ function Navbar(props) {
             <ul className="navbar__menu">
                 <li className="navbar__item">
                     <Link to="/create">
-                        <SearchIcon className="navbar__icon" style={{ color: 'white' }}/>
+                        <LibraryAddIcon className="navbar__icon" style={{ color: 'white' }}/>
                     </Link>
                 </li>
                 <li className="navbar__item">
