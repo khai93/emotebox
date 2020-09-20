@@ -1,0 +1,16 @@
+.createListItem__img {
+    width: 60px;
+    display: inline-block;
+}
+
+.createListItem__outter > p {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    height: 100%;
+
+}
+
+.createListItem__tags {
+    margin-left: 10px;
+}

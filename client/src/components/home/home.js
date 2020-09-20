@@ -3,11 +3,13 @@ import {AuthHelper, DiscordHelper, ApiHelper} from "../../helpers"
 import {Navbar, SearchBar, TagList, SearchResultList} from '../shared'
 import './home.css'
 
+
 function Home(props) { 
     const user = props.user;
     const [results, setResults] = useState([]);
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
+    
     const handleSearch = (e, inputValue) => {
         e.preventDefault();
         fetchSearchData(inputValue);
@@ -18,8 +20,6 @@ function Home(props) {
         const packs = await ApiHelper.searchPacksByText(25, 0, input);
 
         const merged = [...emotes, ...packs];
-        
-        console.log(emotes)
 
         merged.sort((a, b) => a.installs - b.installs);
         setResults(merged)

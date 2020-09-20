@@ -4,9 +4,6 @@ import SearchResultItem from '../searchResultItem'
 import './searchResultList.css'
 
 function SearchResultList(props) {
-
-    
-
     const [results, setResults] = useState([]);
 
     useEffect(() => {

@@ -18,6 +18,13 @@ EmoteController.getById = (id) => {
     return EmoteService.getById(id);
 }
 
+EmoteController.getByCreatorId = (id) => {
+    if (typeof id == 'undefined') {
+        throw new Error("Creator Id must be supplied")
+    }
+    return EmoteService.getByCreatorId(id);
+}
+
 EmoteController.searchByText = (query) => {
     if (typeof query == 'undefined') {
         throw new Error("Query must be supplied in order to search");

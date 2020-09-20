@@ -27,6 +27,18 @@ ApiHelper.searchPacksByText = (limit, startAt, input) => {
         })
 } 
 
-ApiHelper.getImageFromKey = (imageKey) => window.location.protocol + "//" + window.location.hostname + ":5000/api/emotes/images/" + imageKey;
+ApiHelper.getImageFromKey = (imageKey) => process.env.PUBLIC_URL + "/api/emotes/images/" + imageKey;
 
+ApiHelper.getEmotesByCreator = (id) => {
+    return fetch(`/api/emotes/creator/${id}`)
+        .then(res => {
+            return res.json();
+        })
+        .then((json) => {
+            return json
+        },
+        (error) => {
+            throw new Error(error)
+        })
+}
 export { ApiHelper as default }

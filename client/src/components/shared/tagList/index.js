@@ -3,10 +3,16 @@ import Tag from '../tag'
 
 import './tagList.css'
 
-function TagList() {
+function TagList(props) {
+    const tagsProp = props.tags;
+
     const dummyTags = ["Funny", "Anime", "Weird", "Crying", "Meme", "Angry"]
    
     const [tags, setTags] = useState(dummyTags);
+
+    if (typeof tagsProp != 'undefined') {
+        setTags(tagsProp);
+    }
 
     // TODO: add api request
 

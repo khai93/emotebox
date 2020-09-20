@@ -17,7 +17,7 @@ const Emote = mongoose.Schema(
         tags: {
             type: [String]
         },
-        owner_id : {
+        creator_id : {
             type: String,
             required: true
         }
