@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {AuthHelper, DiscordHelper, ApiHelper} from "../../helpers"
-import {Navbar, SearchBar, TagList, SearchResultList} from '../shared'
+import {Navbar, SearchBar, TagList} from '../shared'
+import { SearchResultList  } from "../searchResultList"
+
 import './home.css'
 
 

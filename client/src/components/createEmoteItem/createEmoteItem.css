@@ -1,6 +1,23 @@
 .createListItem__img {
-    width: 60px;
+    border: 1px solid var(--dark);
+    padding: 10px;
+    height: 150px;
+    width: 100%;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.createListItem__img:hover {
+    border: 1px solid var(--white);
+}
+
+.createListItem__outter {
+    width: 150px;
+    margin: 20px;
     display: inline-block;
+    *display: inline;
 }
 
 .createListItem__outter > p {
@@ -8,7 +25,6 @@
     font-size: 14px;
     margin-left: 10px;
     height: 100%;
-
 }
 
 .createListItem__tags {

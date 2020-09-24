@@ -6,7 +6,7 @@ function Tag(props) {
     const tagName = props.tagName;
     
     return (
-        <button className="tag__btn">
+        <button className={"tag__btn " + props.className}>
             { tagName }
         </button>
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ApiHelper } from '../../../helpers/'
+import { ApiHelper } from '../../helpers'
 
 import "./searchResultItem.css"
 

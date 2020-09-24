@@ -1,0 +1,86 @@
+.editModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    
+    width: 35%;
+    text-align: center;
+    color: white;
+}
+
+.editModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000090;
+}
+
+.editModal__exit {
+    text-align:right;
+}
+
+.editModal_exitBtn {
+    color: white;
+    background-color: transparent;
+    border: 0.5px solid white;
+    cursor: pointer;
+}
+
+.editModal__textInput {
+    padding: 15px 10px;
+    width: 80%;
+    font-size: 18px;
+    border:none;
+}
+
+.editModal_inputCtn {
+    position: relative;
+    margin: 20px 0 10px;
+}
+
+.editModal__submitBtn {
+    position: absolute;
+    border: none;
+    height: 100%;
+    background-color: var(--purple);
+    color: white;
+    right: 56px;
+    font-size: 16px;
+    width: 75px;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.editModal__submitBtn:hover {
+    background-color: var(--dark);
+}
+
+.editModal__tagCtn {
+    display: inline-block;
+    position: relative;
+}
+
+.editModal__tag:hover {
+    background-color: var(--purple);
+    color: white;
+    cursor: default;
+}
+
+.editModal__tagBtn {
+    position: absolute;
+    right: 7px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: none;
+}
+
+
+
+
+
