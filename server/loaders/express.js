@@ -5,6 +5,7 @@ const routes = require("../api");
 const config = require("../config")
 const session = require('express-session');
 const Strategy = require("passport-discord").Strategy;
+const expressValidator = require("express-validator");
 const passport = require("passport");
 
 passport.serializeUser(function(user, done) {
@@ -43,7 +44,6 @@ module.exports = async (app) => {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
-
 
   // Load API routes
   app.use(config.api.prefix, routes());

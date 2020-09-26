@@ -1,7 +1,7 @@
 const {Router} = require('express');
-const {ControllerHandler: ch, CheckAuth} = require("../../../middlewares")
-const {PackController} = require("../../../controllers");
-const config = require("../../../config");
+const {ControllerHandler: ch, CheckAuth} = require("../../middlewares")
+const {PackController} = require("../../controllers");
+const config = require("../../config");
 const route = Router();
 const multer = require("multer");
 

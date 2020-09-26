@@ -4,39 +4,17 @@ const S3Controller = require("./s3");
 
 const EmoteController = {}
 
-EmoteController.getAllByName = (name) => {
-    if (name === '') {
-        throw new Error("Emote name cannot be null");
-    }
-    return EmoteService.getAllByName(name);
-}
+EmoteController.getAllByName = (name) => EmoteService.getAllByName(name);
 
-EmoteController.getById = (id) => {
-    if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
-        throw new Error("Emote Id is not correct");
-    }
-    return EmoteService.getById(id);
-}
+EmoteController.getById = (id) => EmoteService.getById(id);
 
-EmoteController.getByCreatorId = (id) => {
-    if (typeof id == 'undefined') {
-        throw new Error("Creator Id must be supplied")
-    }
-    return EmoteService.getByCreatorId(id);
-}
+EmoteController.getByCreatorId = (id) => EmoteService.getByCreatorId(id);
 
 EmoteController.searchByText = (query) => {
-    if (typeof query == 'undefined') {
-        throw new Error("Query must be supplied in order to search");
-    }
     try {
         const limit = parseInt(query.limit) || 25;
         const startAt = parseInt(query.startAt) || 0;
         const searchTerm = query.searchTerm;
-
-        if (typeof searchTerm == 'undefined' || searchTerm === '') {
-            throw new Error("A search term must be supplied in order to search");
-        }
 
         return EmoteService.searchByText(searchTerm, startAt, limit);
     } catch (e) {
@@ -45,24 +23,7 @@ EmoteController.searchByText = (query) => {
 }
 
 EmoteController.create = async (user, name, imageFile, tagsParam) => {
-    if (typeof name == 'undefined' || !name) {
-        throw new Error("Emote name cannot be null");
-    }
-
-    if (typeof imageFile == 'undefined' || !imageFile) {
-        throw new Error("An image file must be supplied");
-    }
-
-    if (!imageFile.hasOwnProperty("path")) {
-        throw new Error("Something unexpected happened while retrieving file path");
-    }
-
-    const imagePath = imageFile.path
-
-    if (!tagsParam || Object.keys(tagsParam).length === 0) {
-        throw new Error("Tags must be supplied in order to create");
-    }
-
+    const imagePath = imageFile.path;
     let tags = tagsParam;
 
     // POSTMAN MIGHT SEND AS STRING
@@ -88,5 +49,6 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
         throw new Error(e);
     }
 }
+
 
 module.exports = EmoteController;

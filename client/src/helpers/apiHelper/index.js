@@ -41,4 +41,6 @@ ApiHelper.getEmotesByCreator = (id) => {
             throw new Error(error)
         })
 }
+
+
 export { ApiHelper as default }
