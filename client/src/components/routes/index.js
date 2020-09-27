@@ -5,10 +5,10 @@ import {
     Route
 } from 'react-router-dom';
 
-import {Home} from "../components/home";
-import {Login} from "../components/login";
-import {Create} from "../components/create";
-import {AuthCheck} from "../components/shared/"
+import {Home} from "../scenes/HomeScene/home";
+import {Login} from "../scenes/LoginScene/login";
+import {Create} from "../scenes/CreateScene/editModal/create";
+import {AuthCheck} from "../shared"
 
 function Routes() {
     return (

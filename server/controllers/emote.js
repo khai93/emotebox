@@ -1,5 +1,6 @@
 const { json } = require("body-parser");
 const { EmoteService } = require("../services/");
+const { EmoteUtil } = require("../utils");
 const S3Controller = require("./s3");
 
 const EmoteController = {}
@@ -23,17 +24,9 @@ EmoteController.searchByText = (query) => {
 }
 
 EmoteController.create = async (user, name, imageFile, tagsParam) => {
+    
     const imagePath = imageFile.path;
     let tags = tagsParam;
-
-    // POSTMAN MIGHT SEND AS STRING
-    if (typeof tagsParam == "string") {
-        try {
-            tags = JSON.parse(tagsParam);
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
 
     try {
         const upload = await S3Controller.uploadFile(imagePath);
@@ -45,6 +38,60 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
         }
 
         return EmoteService.create(name, upload.Location.split("emotes/")[1], tags || [],  user.id);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.editById = async (user, body) =>  {
+    const emote_id = body.emote_id;
+    const name = body.name;
+    const tags = body.tags;
+
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.editById(emote_id, name, tags);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.addTag = async (user, body) => {
+    const emote_id = body.emote_id;
+    const tag = body.tag;
+
+    console.log(body);
+
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.addTag(emote_id, tag);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.removeTag = async (user, body) => {
+    const emote_id = body.emote_id;
+    const tag = body.tag;
+
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.removeTag(emote_id, tag);
     } catch (e) {
         throw new Error(e);
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { TagList } from "../shared"
-import { ApiHelper } from '../../helpers/'
+import { TagList } from "../../../../shared"
+import { ApiHelper } from '../../../../../helpers'
 
 import "./createEmoteItem.css"
 

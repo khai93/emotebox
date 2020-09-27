@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
-import {Navbar} from '../shared'
+import React, { useState, useEffect } from 'react'
+import {Navbar} from '../../../../shared'
 import { CreateEmoteList } from "../createEmoteList"
-import { EditModal } from "../editModal"
-import {DiscordHelper, ApiHelper} from "../../helpers"
+import { EditModal } from ".."
+import {DiscordHelper, ApiHelper} from "../../../../../helpers"
 import ImageUploader from "react-images-upload"
 import './create.css'
 
 function Create(props) { 
     const [editModalIsOpen, setIsOpen] = useState(false)
-    const [pictures, setPictures] = useState([]);
     const [editEmote, setEditEmoteState] = useState({});
+    const [uploadedEmotes, setUploadedEmotes] = useState([]);
+    const [userEmotes, setUserEmotes] = useState([]);
 
     const user = props.user;
+
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar);
 
     const fileContainerStyles = {
@@ -27,9 +29,33 @@ function Create(props) {
         fontSize: "16px",
     }
 
-    const onDrop = picture => {
-        setPictures([...pictures, picture])
+    async function fetchUserEmotes() {
+        const userEmotesData = await ApiHelper.getEmotesByCreator(user.id);
+        setUserEmotes(userEmotesData);
+        updateEditEmote(userEmotesData);
     }
+
+    async function updateEditEmote(userEmotesData) {
+        const editEmoteIndex = userEmotesData.findIndex(e => e._id == editEmote._id);
+
+        if (editEmoteIndex !== -1) {
+            setEditEmoteState(userEmotesData[editEmoteIndex]);
+        }
+    }
+
+    async function onDrop (pics) {
+        for(const pic of pics) {
+            await ApiHelper.uploadEmote(pic);
+        }
+
+        this.clearPictures();
+
+        fetchUserEmotes();
+    }
+    
+    useEffect(() => {
+        fetchUserEmotes()
+    }, [user])
 
     function openModal() {
         setIsOpen(true);
@@ -43,7 +69,7 @@ function Create(props) {
         setEditEmoteState(emote);
         openModal();
     }
-
+    
     return (
         <div className="create__main">
             <Navbar userAvatar={userAvatar}></Navbar>
@@ -58,8 +84,8 @@ function Create(props) {
               imgExtension={[".jpg", ".gif", ".png"]}
               maxFileSize={5242880}
             />
-            <CreateEmoteList setEditEmote={setEditEmote} />
-            <EditModal closeModal={closeModal} editModalIsOpen={editModalIsOpen} emoteData={editEmote} />
+            <CreateEmoteList setEditEmote={setEditEmote} userEmotes={userEmotes} />
+            <EditModal closeModal={closeModal} editModalIsOpen={editModalIsOpen} emoteData={editEmote} fetchUserEmotes={fetchUserEmotes} />
         </div>
     )
 }

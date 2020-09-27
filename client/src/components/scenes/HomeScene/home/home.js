@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import {AuthHelper, DiscordHelper, ApiHelper} from "../../helpers"
-import {Navbar, SearchBar, TagList} from '../shared'
+import {AuthHelper, DiscordHelper, ApiHelper} from "../../../../helpers"
+import {Navbar, SearchBar, TagList} from '../../../shared'
 import { SearchResultList  } from "../searchResultList"
 
 import './home.css'
@@ -9,6 +9,7 @@ import './home.css'
 function Home(props) { 
     const user = props.user;
     const [results, setResults] = useState([]);
+    
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
     
@@ -18,6 +19,9 @@ function Home(props) {
     }
 
     const fetchSearchData = async (input) => {
+        if (!input.replace(/\s/g,''))
+            return;
+
         const emotes = await ApiHelper.searchEmotesByText(25, 0, input);
         const packs = await ApiHelper.searchPacksByText(25, 0, input);
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
-import { ApiHelper } from '../../helpers'
-import { Tag } from '../shared'
+import { ApiHelper } from '../../../../helpers'
+import { Tag } from '../../../shared'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -18,27 +18,44 @@ function EditModal(props) {
 
     const closeModal = props.closeModal;
     const editModalIsOpen = props.editModalIsOpen;
-    const emoteData = props.emoteData;
-
-    if (editModalIsOpen && emoteData.hasOwnProperty("tags") && emoteData.tags != tags) {
-        setTags(emoteData.tags)
-    }
+    let emoteData = props.emoteData;
+    const fetchUserEmotes = props.fetchUserEmotes;
 
     let tagsElements;
 
-    if (typeof tags != 'undefined') {
-        tagsElements = tags.map(e => (
-            <div className="editModal__tagCtn" key={e}>
-                <Tag className="editModal__tag" tagName={e}></Tag>
-                <button className="editModal__tagBtn">X</button>
-            </div>
-        ))
+    const editName = async () => {
+        const res = await ApiHelper.editEmoteById(emoteData._id, nameInput);
+        fetchUserEmotes();
+    }
+
+    const addTag = async () => {
+        const res = await ApiHelper.addEmoteTag(emoteData._id, tagInput);
+        fetchUserEmotes();
+    }
+
+    const deleteTag = async (tag) => {
+        const res = await ApiHelper.removeEmoteTag(emoteData._id, tag);
+        fetchUserEmotes();
     }
     
-    async function editName() {
-        console.log(nameInput);
-        
-    }
+    tagsElements = tags.map(e => (
+        <div className="editModal__tagCtn" key={e}>
+            <Tag className="editModal__tag" tagName={e}></Tag>
+            <button onClick={() => deleteTag(e)} className="editModal__tagBtn">X</button>
+        </div>
+    ))
+
+    useEffect(() => {
+        emoteData = props.emoteData;
+
+        if (editModalIsOpen && emoteData.hasOwnProperty("tags") && emoteData.tags != tags) {
+            setTags(props.emoteData.tags)
+        }
+
+        if (typeof tags != 'undefined') {
+            
+        }
+    }, [props.emoteData])
 
     return (
         <Modal 
@@ -57,19 +74,19 @@ function EditModal(props) {
                     <Tab>Tags</Tab>
                 </TabList>
                 <TabPanel>
-                    <h2>Edit Name For {emoteData.name}</h2>
+                    <h2>Edit Name For {props.emoteData.name}</h2>
                     <div className="editModal_inputCtn">
                         <input className="editModal__textInput" type="text" value={nameInput} onChange={e => setNameInput(e.target.value)}></input>
                         <button onClick={editName} className="editModal__submitBtn">Edit</button>
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Edit Tags for {emoteData.name}</h2>
+                    <h2>Edit Tags for {props.emoteData.name}</h2>
                     {tagsElements}
                     <div className="editModal_inputCtn">
                         <input className="editModal__textInput" type="text" value={tagInput} onChange={e => setTagInput(e.target.value)}></input>
                         
-                        <button className="editModal__submitBtn">Add</button>
+                        <button onClick={addTag} className="editModal__submitBtn">Add</button>
                     </div>
                 </TabPanel> 
             </Tabs>

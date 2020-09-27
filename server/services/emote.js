@@ -41,7 +41,7 @@ EmoteService.create = (name, imageKey, tags, creator_id) => EmoteModel.create({n
  * @param {string} id 
  * @returns {Promise<Document[]>}
  */
-EmoteService.getByCreatorId = (id) => EmoteModel.find({ owner_id: id }).exec();
+EmoteService.getByCreatorId = (id) => EmoteModel.find({ creator_id: id }).exec();
 
 /**
  * Edit an emote by its document ID
@@ -50,7 +50,24 @@ EmoteService.getByCreatorId = (id) => EmoteModel.find({ owner_id: id }).exec();
  * @param {string[]} [tags] 
  * @param {string} [imageKey] 
  * @param {string} [creator_id] 
+ * @returns {Promise<Document[]>}
  */
-EmoteService.editById = (id, name = null, tags = null, imageKey = null, creator_id = null) => EmoteModel.findOneAndUpdate({ _id: id }, {name, tags, imageKey, creator_id}).exec();
+EmoteService.editById = (id, name, tags, imageKey, creator_id) => EmoteModel.findOneAndUpdate({ _id: id }, {$set: {...(name && {name}), ...(tags && {tags}), ...(imageKey && {imageKey}), ...(creator_id && {creator_id})}}).exec();
+
+/**
+ * Append a tag to an emote
+ * @param {string} id - document _id
+ * @param {string} tag 
+ * @returns {Promise<Document[]>}
+ */
+EmoteService.addTag = (id, tag) => EmoteModel.findOneAndUpdate({_id: id}, { "$push": { tags: tag } }).exec()
+
+/**
+ * Remove a tag from an emote
+ * @param {string} id
+ * @param {string} tag
+ * @returns {Promise<Document[]>}
+ */
+EmoteService.removeTag = (id, tag) => EmoteModel.findOneAndUpdate({_id: id}, { "$pull": { tags: tag } }).exec()
 
 module.exports = EmoteService;

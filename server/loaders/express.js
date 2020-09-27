@@ -3,10 +3,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require("../api");
 const config = require("../config")
-const session = require('express-session');
+
 const Strategy = require("passport-discord").Strategy;
-const expressValidator = require("express-validator");
+const session = require('express-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+
 const passport = require("passport");
+const multer = require("multer");
+
+const upload = multer({
+  storage: multer.diskStorage(config.multerStorage)
+});
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -24,7 +32,7 @@ passport.use(new Strategy({
 }, function(accessToken, refreshToken, profile, done) {
   process.nextTick(function() {
       return done(null, profile)
-  })
+  });
 }));
 
 module.exports = async (app) => {
@@ -39,6 +47,7 @@ module.exports = async (app) => {
 
   app.use(session({
     secret: config.authSecret,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     resave: false,
     saveUninitialized: false
   }));

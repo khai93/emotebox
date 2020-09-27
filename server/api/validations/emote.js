@@ -1,18 +1,27 @@
-const { body, query, param } = require('express-validator');
+const { body, query, param, checkSchema } = require('express-validator');
 const { Validate } = require("../utils")
 
 const MongoDbValidDocumentIdRegex = /^[0-9a-fA-F]{24}$/;
 
 const validations = {
     getById: [
-        param('id', 'id is invalid').exists().isInt().matches(MongoDbValidDocumentIdRegex)
+        param('id', 'id is invalid').exists().isString().matches(MongoDbValidDocumentIdRegex)
     ],
     getByCreatorId: [
-        param('id', 'id is invalid').exists().isInt()
+        param('id', 'id is invalid').exists().isString()
     ],
     create: [
+        body('tags', 'tags is invalid').optional().isArray(),
         body('emoteName', 'emoteName is invalid').exists().isString(),
-        body('emote_file', 'emote_file was not provided').exists()
+        checkSchema({
+            'file': {
+                custom: {
+                    options: (value, {req, path}) => !!req.file,
+                    errorMessage: "emote file was not provided"
+                }
+
+            }
+        })
 
     ],
     searchByText: [
@@ -20,7 +29,15 @@ const validations = {
         query('startAt').optional().isInt(),
         query('searchTerm', "searchTerm is invalid").exists().isString()
     ],
-
+    editById: [
+        body('emote_id', 'emote_id is invalided').exists().isString().matches(MongoDbValidDocumentIdRegex),
+        body('name').optional().isString(),
+        body('tags').optional().isArray()
+    ],
+    editTag: [
+        body('emote_id', 'emote_id is invalided').exists().isString().matches(MongoDbValidDocumentIdRegex),
+        body('tag').exists().isString()
+    ]
 }
 
 /**
