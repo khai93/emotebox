@@ -70,4 +70,10 @@ EmoteService.addTag = (id, tag) => EmoteModel.findOneAndUpdate({_id: id}, { "$pu
  */
 EmoteService.removeTag = (id, tag) => EmoteModel.findOneAndUpdate({_id: id}, { "$pull": { tags: tag } }).exec()
 
+/**
+ * Deletes an emote by its document id
+ * @param {string} id - mongoDb document id
+ */
+EmoteService.deleteOneById = (id) => EmoteModel.deleteOne({ _id: id }).exec()
+
 module.exports = EmoteService;

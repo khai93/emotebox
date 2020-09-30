@@ -37,6 +37,9 @@ const validations = {
     editTag: [
         body('emote_id', 'emote_id is invalided').exists().isString().matches(MongoDbValidDocumentIdRegex),
         body('tag').exists().isString()
+    ],
+    deleteOne: [
+        param('id', 'id is invalid').exists().isString().matches(MongoDbValidDocumentIdRegex)
     ]
 }
 

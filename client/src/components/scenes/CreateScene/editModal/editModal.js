@@ -25,17 +25,25 @@ function EditModal(props) {
 
     const editName = async () => {
         const res = await ApiHelper.editEmoteById(emoteData._id, nameInput);
+        setNameInput("");
         fetchUserEmotes();
     }
 
     const addTag = async () => {
         const res = await ApiHelper.addEmoteTag(emoteData._id, tagInput);
+        setTagInput("")
         fetchUserEmotes();
     }
 
     const deleteTag = async (tag) => {
         const res = await ApiHelper.removeEmoteTag(emoteData._id, tag);
         fetchUserEmotes();
+    }
+
+    const deleteEmote = async () => {
+        const res = await ApiHelper.deleteEmoteById(emoteData._id);
+        fetchUserEmotes();
+        closeModal();
     }
     
     tagsElements = tags.map(e => (
@@ -50,10 +58,6 @@ function EditModal(props) {
 
         if (editModalIsOpen && emoteData.hasOwnProperty("tags") && emoteData.tags != tags) {
             setTags(props.emoteData.tags)
-        }
-
-        if (typeof tags != 'undefined') {
-            
         }
     }, [props.emoteData])
 
@@ -79,6 +83,7 @@ function EditModal(props) {
                         <input className="editModal__textInput" type="text" value={nameInput} onChange={e => setNameInput(e.target.value)}></input>
                         <button onClick={editName} className="editModal__submitBtn">Edit</button>
                     </div>
+                    <button onClick={deleteEmote} className="editModal__deleteBtn">Delete Emote</button>
                 </TabPanel>
                 <TabPanel>
                     <h2>Edit Tags for {props.emoteData.name}</h2>

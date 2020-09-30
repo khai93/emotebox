@@ -80,6 +80,19 @@
     border: none;
 }
 
+.editModal__deleteBtn {
+    border: none;
+    background-color: maroon;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.editModal__deleteBtn:hover {
+    cursor: pointer;
+    background-color: darkred;
+}
 
 
 

@@ -97,5 +97,7 @@ EmoteController.removeTag = async (user, body) => {
     }
 }
 
+EmoteController.deleteOne = (id) => EmoteService.deleteOneById(id)
+
 
 module.exports = EmoteController;

@@ -1,4 +1,3 @@
-
 const ApiHelper = {}
 
 ApiHelper.searchEmotesByText = (limit, startAt, input) => {
@@ -119,6 +118,20 @@ ApiHelper.removeEmoteTag = (emote_id, tag) => {
             return json;
         },
         (error) => {
+            throw new Error(error)
+        })
+}
+
+ApiHelper.deleteEmoteById = (emote_id) => {
+    const requestOpts = {
+        method: 'POST'
+    }
+
+    return fetch(`/api/emotes/delete/${emote_id}`, requestOpts)
+        .then(response => response.json())
+        .then(json => {
+            return json;
+        }, (error) => {
             throw new Error(error)
         })
 }

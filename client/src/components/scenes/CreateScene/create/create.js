@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import {NavBar} from '../../../../shared'
+import {NavBar} from '../../../shared'
 import { CreateEmoteList } from "../createEmoteList"
-import { EditModal } from ".."
-import {DiscordHelper, ApiHelper} from "../../../../../helpers"
+import { EditModal } from "../editModal"
+import {DiscordHelper, ApiHelper} from "../../../../helpers"
 import ImageUploader from 'react-images-upload-demo/src/component/compiled'
 import './create.css'
 
@@ -42,11 +42,6 @@ function Create(props) {
         }
     }
 
-    
-    useEffect(() => {
-        fetchUserEmotes()
-    }, [user])
-
     function openModal() {
         setIsOpen(true);
     }
@@ -62,12 +57,17 @@ function Create(props) {
 
     async function onDrop (pics) {
         // upload all pictures
-        console.log(pics);
-
+        for(const pic of pics) {
+            const uploaded = await ApiHelper.uploadEmote(pic);
+        }
 
         fetchUserEmotes();
     }
     
+    
+    useEffect(() => {
+        fetchUserEmotes()
+    }, [user])
     
     return (
         <div className="create__main">

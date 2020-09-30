@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CreateEmoteItem } from '../createEmoteItem'
-import { ApiHelper } from '../../../../../helpers'
+import { ApiHelper } from '../../../../helpers'
 
 import './createEmoteList.css'
 

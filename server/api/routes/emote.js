@@ -5,7 +5,6 @@ const { EmoteValidate, S3Validate } = require("../validations");
 const config = require("../../config");
 const route = Router();
 const multer = require("multer");
-const EmoteService = require('../../services/emote');
 
 const upload = multer({
     storage: multer.diskStorage(config.multerStorage)
@@ -30,5 +29,6 @@ module.exports = async (app) => {
 
     route.post("/edit/tag/remove", CheckAuth, ...EmoteValidate('editTag'), ch(EmoteController.removeTag, (req, res, next) => [req.user, req.body]))
 
+    route.post("/delete/:id", CheckAuth, ...EmoteValidate('deleteOne'), ch(EmoteController.deleteOne, (req, res, next) => [req.params.id]))
 }
 

@@ -7,7 +7,7 @@ import {
 
 import {Home} from "../scenes/HomeScene/home";
 import {Login} from "../scenes/LoginScene/login";
-import {Create} from "../scenes/CreateScene/editModal/create";
+import {Create} from "../scenes/CreateScene/create";
 import {AuthCheck} from "../shared"
 
 function Routes() {
