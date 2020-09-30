@@ -7,6 +7,7 @@ AuthHelper.getAuthenticatedUser = () => {
             if (res.status === 401) {
                 return window.location = "/login";
             }
+
             return res.json()
         })
         .then((userRes) => {
@@ -14,7 +15,7 @@ AuthHelper.getAuthenticatedUser = () => {
         },
         (error) => {
             throw new Error(error)
-         })
+        })
 } 
 
 export { AuthHelper as default }

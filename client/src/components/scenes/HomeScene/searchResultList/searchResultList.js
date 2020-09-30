@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import SearchResultItem from '../searchResultItem'
+import { SearchResultItem } from '../searchResultItem'
 
 import './searchResultList.css'
 
 function SearchResultList(props) {
-
-    
-
     const [results, setResults] = useState([]);
 
     useEffect(() => {
