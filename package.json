@@ -36,7 +36,7 @@
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
     "rand-token": "^1.0.1",
-    "react-images-upload": "^1.2.8",
+    "react-images-upload-demo": "https://github.com/khai93/react-images-upload.git#fix/save-state",
     "react-modal": "^3.11.2",
     "react-router-dom": "^5.2.0",
     "react-tabs": "^3.1.1"

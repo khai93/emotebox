@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {ControllerHandler: ch, CheckAuth} = require("../../middlewares")
+const {ControllerHandler: ch, CheckAuth} = require("../middlewares")
 const {PackController} = require("../../controllers");
 const config = require("../../config");
 const route = Router();
@@ -16,4 +16,6 @@ module.exports = async (app) => {
 
     route.post("/create",  CheckAuth, ch(PackController.create, (req, res, next) => [req.user, req.body.packName, req.body.tags]))
 }
+
+
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {AuthHelper, DiscordHelper, ApiHelper} from "../../../../helpers"
-import {Navbar, SearchBar, TagList} from '../../../shared'
+import {NavBar, SearchBar, TagList} from '../../../shared'
 import { SearchResultList  } from "../searchResultList"
 
 import './home.css'
@@ -33,7 +33,7 @@ function Home(props) {
 
     return (
         <div className="home__main">
-            <Navbar userAvatar={userAvatar}></Navbar>
+            <NavBar userAvatar={userAvatar} />
             <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList />
             <SearchResultList resultsData={results}></SearchResultList>

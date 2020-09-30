@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import {Navbar} from '../../../../shared'
+import {NavBar} from '../../../../shared'
 import { CreateEmoteList } from "../createEmoteList"
 import { EditModal } from ".."
 import {DiscordHelper, ApiHelper} from "../../../../../helpers"
-import ImageUploader from "react-images-upload"
+import ImageUploader from 'react-images-upload-demo/src/component/compiled'
 import './create.css'
 
 function Create(props) { 
     const [editModalIsOpen, setIsOpen] = useState(false)
     const [editEmote, setEditEmoteState] = useState({});
-    const [uploadedEmotes, setUploadedEmotes] = useState([]);
     const [userEmotes, setUserEmotes] = useState([]);
 
     const user = props.user;
@@ -43,15 +42,6 @@ function Create(props) {
         }
     }
 
-    async function onDrop (pics) {
-        for(const pic of pics) {
-            await ApiHelper.uploadEmote(pic);
-        }
-
-        this.clearPictures();
-
-        fetchUserEmotes();
-    }
     
     useEffect(() => {
         fetchUserEmotes()
@@ -69,10 +59,19 @@ function Create(props) {
         setEditEmoteState(emote);
         openModal();
     }
+
+    async function onDrop (pics) {
+        // upload all pictures
+        console.log(pics);
+
+
+        fetchUserEmotes();
+    }
+    
     
     return (
         <div className="create__main">
-            <Navbar userAvatar={userAvatar}></Navbar>
+            <NavBar userAvatar={userAvatar} />
             <ImageUploader
               fileContainerStyle={fileContainerStyles}
               buttonStyles={buttonStyles}
@@ -80,6 +79,7 @@ function Create(props) {
               buttonText="Upload Emotes"
               withLabel={false}
               withIcon={false}
+              keepState={false}
               onChange={onDrop}
               imgExtension={[".jpg", ".gif", ".png"]}
               maxFileSize={5242880}
