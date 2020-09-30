@@ -32,7 +32,9 @@
 }
 
 .navbar__icon {
-    margin-right: 8px;
+    margin-right: 20px;
+    color: white;
+    font-size: 18px;
 }
 
 .navbar__dropdownContent {

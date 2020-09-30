@@ -1,37 +1,31 @@
 import React, { useState, useEffect } from 'react'
-import {AuthHelper, DiscordHelper, ApiHelper} from "../../helpers"
-import {Navbar, SearchBar, TagList, SearchResultList} from '../shared'
+import {AuthHelper, DiscordHelper, ApiHelper} from "../../../../helpers"
+import {NavBar, SearchBar, TagList} from '../../../shared'
+import { SearchResultList  } from "../searchResultList"
+
 import './home.css'
 
-function Home() { 
-    const [user, setUser] = useState({});
+
+function Home(props) { 
+    const user = props.user;
     const [results, setResults] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const userRes = await AuthHelper.getAuthenticatedUser();
-            setUser(userRes);
-        }
-
-        
-
-        // TODO: HANDLE THROWN ERROR IF IT COULD NOT GET THE USER
-        fetchData()
-    }, [])
+    
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
+    
     const handleSearch = (e, inputValue) => {
         e.preventDefault();
         fetchSearchData(inputValue);
     }
 
     const fetchSearchData = async (input) => {
+        if (!input.replace(/\s/g,''))
+            return;
+
         const emotes = await ApiHelper.searchEmotesByText(25, 0, input);
         const packs = await ApiHelper.searchPacksByText(25, 0, input);
 
         const merged = [...emotes, ...packs];
-        
-        console.log(emotes)
 
         merged.sort((a, b) => a.installs - b.installs);
         setResults(merged)
@@ -39,7 +33,7 @@ function Home() {
 
     return (
         <div className="home__main">
-            <Navbar userAvatar={userAvatar}></Navbar>
+            <NavBar userAvatar={userAvatar} />
             <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList />
             <SearchResultList resultsData={results}></SearchResultList>
