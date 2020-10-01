@@ -1,8 +1,8 @@
-const {Router} = require('express');
-const {ControllerHandler: ch, CheckAuth} = require("../middlewares");
-const {EmoteController, S3Controller} = require("../../controllers");
-const { EmoteValidate, S3Validate } = require("../validations");
-const config = require("../../config");
+const { Router } = require('express');
+const { ControllerHandler: ch, CheckAuth } = require("../../middlewares");
+const { EmoteController, S3Controller } = require("../../../controllers");
+const { EmoteValidate, S3Validate } = require("../../validations");
+const config = require("../../../config");
 const route = Router();
 const multer = require("multer");
 

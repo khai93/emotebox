@@ -24,7 +24,6 @@ EmoteController.searchByText = (query) => {
 }
 
 EmoteController.create = async (user, name, imageFile, tagsParam) => {
-    
     const imagePath = imageFile.path;
     let tags = tagsParam;
 
@@ -32,8 +31,8 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
         const upload = await S3Controller.uploadFile(imagePath);
 
         const split = upload.Location.split("emotes/");
-
-        if (split.length <= 0) {
+        
+        if (split.length < 2) {
             throw new Error("Unexpected upload location");
         }
 
@@ -64,9 +63,7 @@ EmoteController.editById = async (user, body) =>  {
 EmoteController.addTag = async (user, body) => {
     const emote_id = body.emote_id;
     const tag = body.tag;
-
-    console.log(body);
-
+    
     try {
         const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
 
