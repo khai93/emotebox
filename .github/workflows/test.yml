@@ -6,14 +6,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: bypass env error
-        run: |
-          cd server
-          touch .env
-          echo DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} >> .env
-          echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> .env
-          cat .env
-          cd ..
+      - name: Variable to Dotenv
+        uses: TickX/var-to-dotenv@v1.1.3
+        with:
+          # Name of key
+          key: Bypass
+          # Value of key
+          value: test
+          envPath: server/.env
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
