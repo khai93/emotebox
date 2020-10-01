@@ -1,3 +1,5 @@
+![tests](https://github.com/khai93/emotebox/workflows/test/badge.svg)
+
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
