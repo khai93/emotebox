@@ -1,5 +1,4 @@
-name: Test Package
-
+name: test
 on: [push]
 
 jobs:
