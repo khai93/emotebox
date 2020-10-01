@@ -1,35 +1,21 @@
 const { json } = require("body-parser");
 const { EmoteService } = require("../services/");
+const { EmoteUtil } = require("../utils");
 const S3Controller = require("./s3");
 
 const EmoteController = {}
 
-EmoteController.getAllByName = (name) => {
-    if (name === '') {
-        throw new Error("Emote name cannot be null");
-    }
-    return EmoteService.getAllByName(name);
-}
+EmoteController.getAllByName = (name) => EmoteService.getAllByName(name);
 
-EmoteController.getById = (id) => {
-    if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
-        throw new Error("Emote Id is not correct");
-    }
-    return EmoteService.getById(id);
-}
+EmoteController.getById = (id) => EmoteService.getById(id);
+
+EmoteController.getByCreatorId = (id) => EmoteService.getByCreatorId(id);
 
 EmoteController.searchByText = (query) => {
-    if (typeof query == 'undefined') {
-        throw new Error("Query must be supplied in order to search");
-    }
     try {
         const limit = parseInt(query.limit) || 25;
         const startAt = parseInt(query.startAt) || 0;
         const searchTerm = query.searchTerm;
-
-        if (typeof searchTerm == 'undefined' || searchTerm === '') {
-            throw new Error("A search term must be supplied in order to search");
-        }
 
         return EmoteService.searchByText(searchTerm, startAt, limit);
     } catch (e) {
@@ -38,41 +24,15 @@ EmoteController.searchByText = (query) => {
 }
 
 EmoteController.create = async (user, name, imageFile, tagsParam) => {
-    if (typeof name == 'undefined' || !name) {
-        throw new Error("Emote name cannot be null");
-    }
-
-    if (typeof imageFile == 'undefined' || !imageFile) {
-        throw new Error("An image file must be supplied");
-    }
-
-    if (!imageFile.hasOwnProperty("path")) {
-        throw new Error("Something unexpected happened while retrieving file path");
-    }
-
-    const imagePath = imageFile.path
-
-    if (!tagsParam || Object.keys(tagsParam).length === 0) {
-        throw new Error("Tags must be supplied in order to create");
-    }
-
+    const imagePath = imageFile.path;
     let tags = tagsParam;
-
-    // POSTMAN MIGHT SEND AS STRING
-    if (typeof tagsParam == "string") {
-        try {
-            tags = JSON.parse(tagsParam);
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
 
     try {
         const upload = await S3Controller.uploadFile(imagePath);
 
         const split = upload.Location.split("emotes/");
-
-        if (split.length <= 0) {
+        
+        if (split.length < 2) {
             throw new Error("Unexpected upload location");
         }
 
@@ -81,5 +41,60 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
         throw new Error(e);
     }
 }
+
+EmoteController.editById = async (user, body) =>  {
+    const emote_id = body.emote_id;
+    const name = body.name;
+    const tags = body.tags;
+
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.editById(emote_id, name, tags);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.addTag = async (user, body) => {
+    const emote_id = body.emote_id;
+    const tag = body.tag;
+    
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.addTag(emote_id, tag);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.removeTag = async (user, body) => {
+    const emote_id = body.emote_id;
+    const tag = body.tag;
+
+    try {
+        const emote = await EmoteUtil.checkIfEmoteOwner(emote_id, user.id);
+
+        if (!emote) {
+            throw new Error("You are not authorized to edit this emote!")
+        }
+
+        return EmoteService.removeTag(emote_id, tag);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+EmoteController.deleteOne = (id) => EmoteService.deleteOneById(id)
+
 
 module.exports = EmoteController;

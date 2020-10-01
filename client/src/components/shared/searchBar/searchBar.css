@@ -11,10 +11,11 @@
 }
 
 .searchBar__icon {
-    top:  68px;
+    top:  72px;
     position:absolute;
-    right: 15px;
-    color: var(--gray);
+    right: 20px;
+    font-size: 18px;
+    color: gray
 }
 
 .searchBar__formCtn {
