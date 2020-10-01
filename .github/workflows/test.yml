@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: bypass env error
         run: |
-          touch ./server/.env
-          echo DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} >> ./server/.env
-          echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> ./server/.env
-          cat ./server/.env
+          touch /server/.env
+          echo DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} >> /server/.env
+          echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> /server/.env
+          cat /server/.env
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
