@@ -1,4 +1,4 @@
-const EmoteModel = require("../models/emote");
+const EmoteModel = require("../../models/emote");
 
 /**
  * @namespace EmoteService

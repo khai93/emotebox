@@ -1,4 +1,4 @@
-const { S3Model } = require("../models");
+const { S3Model } = require("../../models");
 
 const S3Service = {}
 

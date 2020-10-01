@@ -1,4 +1,4 @@
-const PackModel = require("../models/pack")
+const PackModel = require("../../models/pack")
 
 const PackService = {}
 

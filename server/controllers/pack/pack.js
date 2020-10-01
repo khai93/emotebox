@@ -1,4 +1,4 @@
-const { PackService } = require("../services/");
+const { PackService } = require("../../services/");
 
 const PackController = {}
 

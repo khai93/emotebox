@@ -1,7 +1,7 @@
 const { json } = require("body-parser");
-const { EmoteService } = require("../services/");
-const { EmoteUtil } = require("../utils");
-const S3Controller = require("./s3");
+const { EmoteService } = require("../../services");
+const { EmoteUtil } = require("../../utils");
+const S3Controller = require("../s3");
 
 const EmoteController = {}
 
