@@ -1,5 +1,5 @@
 const { body, query, param } = require('express-validator');
-const { Validate } = require("../utils")
+const { Validate } = require("../middlewares")
 
 const validations = {
     retrieveImage: [

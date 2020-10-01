@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const passport = require('passport');
-const {CheckAuth} = require("../middlewares/");
-const config = require("../../config");
+const {CheckAuth} = require("../../middlewares");
+const config = require("../../../config");
 const { json } = require('body-parser');
 const route = Router();
 
