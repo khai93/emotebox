@@ -1,6 +1,6 @@
 const fs = require("fs");
-const { S3Service } = require("../services");
-const config = require("../config");
+const { S3Service } = require("../../services");
+const config = require("../../config");
 const randtoken = require('rand-token');
 
 const S3Controller = {}
