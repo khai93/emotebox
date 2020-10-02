@@ -8,6 +8,7 @@ import './home.css'
 
 function Home(props) { 
     const user = props.user;
+    console.log(user);
     const [results, setResults] = useState([]);
     
 
