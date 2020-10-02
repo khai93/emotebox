@@ -10,11 +10,11 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
-    "test:server": "cd server && mocha ./**/**/*.test.js && cd ..",
+    "test:server": "mocha ./server/**/**/*.test.js",
     "test": "yarn test:server",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "dev:server": "cd client && yarn build && cd .. && yarn start",
-    "start": "cd server && node server.js",
+    "start": "node server/server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "cors": "^2.8.5",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
+    "dotenv-webpack": "^3.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",

@@ -36,7 +36,7 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
             throw new Error("Unexpected upload location");
         }
 
-        return EmoteService.create(name, upload.Location.split("emotes/")[1], tags || [],  user.id);
+        return EmoteService.create(name.split('.')[0], upload.Location.split("emotes/")[1], tags || [],  user.id);
     } catch (e) {
         throw e;
     }

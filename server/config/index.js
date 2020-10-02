@@ -46,6 +46,9 @@ module.exports = {
         destination: "uploads/",
         filename: (req, file, cb) => {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        },
+        limits: {
+            fileSize: 256000
         }
     }
 }

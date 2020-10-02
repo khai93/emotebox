@@ -1,5 +1,6 @@
 const { BotService, EmoteService } = require('../../services');
-
+const S3Controller = require("../../controllers/s3")
+const config = require('../../config')
 const BotController = {};
 
 BotController.getUserConnectedGuilds = (user) => BotService.getUserConnectedGuilds(user);
@@ -26,13 +27,16 @@ BotController.deleteEmojiById = async (emoteId) => {
 
 BotController.createEmoji = async (guild_id, emote_id) => {
     try {
-        const Emote = EmoteService.getById(emote_id);
-        const Guild = BotService.getGuildById(guild_id);
-
-        return BotService.createEmoji(Guild, Emote.imageKey, Emote.name);
+        const Emote = (await EmoteService.getById(emote_id))[0];
+        const Guild = await BotService.getGuildById(guild_id);
+        const file = await S3Controller.retrieveFile(Emote.imageKey);
+        console.log(file);
+        return BotService.createEmoji(Guild, file.Body, Emote.name);
     } catch (e) {
         throw e;
     }
 }
+
+BotController.getInviteLink = () => Promise.resolve({link: `https://discord.com/oauth2/authorize?client_id=${config.discord.clientID}&scope=bot&permissions=1073741824`})
 
 module.exports = BotController;

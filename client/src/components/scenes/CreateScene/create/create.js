@@ -82,7 +82,7 @@ function Create(props) {
               keepState={false}
               onChange={onDrop}
               imgExtension={[".jpg", ".gif", ".png"]}
-              maxFileSize={5242880}
+              maxFileSize={256000}
             />
             <CreateEmoteList setEditEmote={setEditEmote} userEmotes={userEmotes} />
             <EditModal closeModal={closeModal} editModalIsOpen={editModalIsOpen} emoteData={editEmote} fetchUserEmotes={fetchUserEmotes} />

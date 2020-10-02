@@ -1,7 +1,7 @@
 const { BotService } = require('../../../services');
 
-function checkEmojiPermission (req, res, next) {
-    const guildEmoji = BotService.getEmojiById(req.param.id);
+async function checkEmojiPermission (req, res, next) {
+    const guildEmoji = await BotService.getEmojiById(req.params.id);
     const guild = guildEmoji.guild;
     const guildMember = guild.members.cache.find(member => member.id === req.user.id);
 

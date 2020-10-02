@@ -1,0 +1,106 @@
+.addModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    text-align: center;
+    color: white;
+}
+
+.addModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000090;
+}
+
+.addModal__exit {
+    text-align:right;
+}
+
+.addModal_exitBtn {
+    color: white;
+    background-color: transparent;
+    border: 0.5px solid white;
+    cursor: pointer;
+}
+
+.addModal__textInput {
+    padding: 15px 10px;
+    width: 80%;
+    font-size: 18px;
+    border:none;
+}
+
+.addModal_inputCtn {
+    position: relative;
+    margin: 20px 0 10px;
+    
+}
+
+.addModal__submitBtn {
+    display: inline-block;
+    padding: 8px 30px;
+    margin: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    height: 100%;
+    background-color: var(--purple);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.addModal__submitBtn:hover {
+    background-color: var(--dark);
+}
+
+.addModal__tagCtn {
+    display: inline-block;
+    position: relative;
+}
+
+.addModal__tag:hover {
+    background-color: var(--purple);
+    color: white;
+    cursor: default;
+}
+
+.addModal__tagBtn {
+    position: absolute;
+    right: 7px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: none;
+}
+
+.addModal__deleteBtn {
+    border: none;
+    background-color: maroon;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.addModal__deleteBtn:hover {
+    cursor: pointer;
+    background-color: darkred;
+}
+
+.addModal select {
+    border: none;
+    margin: 10px 0;
+    padding: 8px 15px;
+}
+
+
+
+
