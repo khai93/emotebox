@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Tag } from '../tag'
+import { Tag } from '../../../shared/tag'
 
 import './tagList.css'
 
 function TagList(props) {
     const tagsProp = props.tags;
+    const onTagClick = props.onTagClick;
 
-    const dummyTags = ["Funny", "Anime", "Weird", "Crying", "Meme", "Angry"]
+    const dummyTags = ["Twitch", "Anime", "Weird", "Crying", "Meme", "Angry"]
    
     const [tags, setTags] = useState(dummyTags);
 
@@ -18,7 +19,7 @@ function TagList(props) {
 
     const tagList = tags.map(t => {
         return (
-            <li key={t}>
+            <li key={t} onClick={() => onTagClick(t)}>
                 <Tag tagName={t} />
             </li>
         )

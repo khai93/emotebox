@@ -1,9 +1,9 @@
-const EmoteService = require("./emote");
-const PackService = require("./pack");
+const EmoteService = require("./emote/");
 const S3Service = require("./s3");
+const BotService = require("./bot")
 
 module.exports = {
     EmoteService,
-    PackService,
-    S3Service
+    S3Service,
+    BotService
 }

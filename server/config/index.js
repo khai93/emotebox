@@ -24,8 +24,9 @@ module.exports = {
 
     // Discord configs
     discord: {
-        clientID: process.env.DISCORD_CLIENT_ID || '749417956903092294',
-        clientSecret: process.env.DISCORD_CLIENT_SECRET || 'secret',
+        token: process.env.DISCORD_TOKEN,
+        clientID: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
         scopes: ['identify', 'guilds'],
         prompt: "consent",
     },
@@ -45,6 +46,9 @@ module.exports = {
         destination: "uploads/",
         filename: (req, file, cb) => {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        },
+        limits: {
+            fileSize: 256000
         }
     }
 }

@@ -19,7 +19,7 @@ EmoteController.searchByText = (query) => {
 
         return EmoteService.searchByText(searchTerm, startAt, limit);
     } catch (e) {
-        throw new Error(e)
+        throw e;
     }
 }
 
@@ -36,9 +36,9 @@ EmoteController.create = async (user, name, imageFile, tagsParam) => {
             throw new Error("Unexpected upload location");
         }
 
-        return EmoteService.create(name, upload.Location.split("emotes/")[1], tags || [],  user.id);
+        return EmoteService.create(name.split('.')[0], upload.Location.split("emotes/")[1], tags || [],  user.id);
     } catch (e) {
-        throw new Error(e);
+        throw e;
     }
 }
 
@@ -56,7 +56,7 @@ EmoteController.editById = async (user, body) =>  {
 
         return EmoteService.editById(emote_id, name, tags);
     } catch (e) {
-        throw new Error(e);
+        throw e;
     }
 }
 
@@ -73,7 +73,7 @@ EmoteController.addTag = async (user, body) => {
 
         return EmoteService.addTag(emote_id, tag);
     } catch (e) {
-        throw new Error(e);
+        throw e;
     }
 }
 
@@ -90,7 +90,7 @@ EmoteController.removeTag = async (user, body) => {
 
         return EmoteService.removeTag(emote_id, tag);
     } catch (e) {
-        throw new Error(e);
+        throw e;
     }
 }
 

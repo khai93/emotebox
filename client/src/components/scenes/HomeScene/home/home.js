@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import {AuthHelper, DiscordHelper, ApiHelper} from "../../../../helpers"
-import {NavBar, SearchBar, TagList} from '../../../shared'
+import { DiscordHelper, ApiHelper } from "../../../../helpers"
+import {NavBar, SearchBar} from '../../../shared'
+import { TagList } from '../tagList';
 import { SearchResultList  } from "../searchResultList"
+import { AddModal } from "../addModal"
 
 import './home.css'
 
 
 function Home(props) { 
     const user = props.user;
+
     const [results, setResults] = useState([]);
+    const [addModalIsOpen, setIsOpen] = useState(false)
+    const [addEmote, setAddEmoteState] = useState({});
     
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
@@ -23,20 +28,31 @@ function Home(props) {
             return;
 
         const emotes = await ApiHelper.searchEmotesByText(25, 0, input);
-        const packs = await ApiHelper.searchPacksByText(25, 0, input);
 
-        const merged = [...emotes, ...packs];
+        setResults(emotes.sort((a, b) => a.installs - b.installs))
+    }
 
-        merged.sort((a, b) => a.installs - b.installs);
-        setResults(merged)
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    const setAddEmote = (emote) => {
+        console.log("hi");
+        setAddEmoteState(emote);
+        openModal();
     }
 
     return (
         <div className="home__main">
             <NavBar userAvatar={userAvatar} />
             <SearchBar handleSearch={handleSearch}></SearchBar>
-            <TagList />
-            <SearchResultList resultsData={results}></SearchResultList>
+            <TagList onTagClick={fetchSearchData}/>
+            <SearchResultList resultsData={results} setAddEmote={setAddEmote}></SearchResultList>
+            <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen}/>
         </div>
     )
 }

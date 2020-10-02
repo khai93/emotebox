@@ -13,19 +13,6 @@ ApiHelper.searchEmotesByText = (limit, startAt, input) => {
         })
 } 
 
-ApiHelper.searchPacksByText = (limit, startAt, input) => {
-    return fetch(`/api/packs/search?limit=${limit}&startAt=${startAt}&searchTerm=${input}`)
-        .then(res => {
-            return res.json();
-        })
-        .then((json) => {
-            return json;
-        },
-        (error) => {
-            throw new Error(error)
-        })
-} 
-
 ApiHelper.getImageFromKey = (imageKey) => process.env.PUBLIC_URL + "/api/emotes/images/" + imageKey;
 
 ApiHelper.getEmotesByCreator = (id) => {
@@ -132,10 +119,47 @@ ApiHelper.deleteEmoteById = (emote_id) => {
         .then(json => {
             return json;
         }, (error) => {
-            throw new Error(error)
+            throw error;
         })
 }
 
+ApiHelper.getDiscordConnectedServers = () => {
+    return fetch(`/api/discord/servers`)
+           .then(response => response.json())
+           .then(json => {
+               return json;
+           }, (error) => {
+               throw error;
+           })
+}
+
+ApiHelper.getDiscordInviteLink = () => {
+    return fetch(`/api/discord/bot/invite`)
+        .then(response => response.json())
+        .then(json => {
+            return json.link;
+        }, (error) => {
+        throw error;
+        })
+}
+
+ApiHelper.createEmojiInGuild = (guildId, emoteId) => {
+    const requestOpts = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            emoteId
+        })
+    };
+
+    return fetch(`/api/discord/guild/${guildId}/createEmoji`, requestOpts)
+           .then(response => response.json())
+           .then(json => {
+               return json;
+           }, (error) => {
+               throw error;
+           });
+}
 
 
 

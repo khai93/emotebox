@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator'),
       Validate = require('./validate'),
-      sinon = require('sinon'),
       assert = require('assert');
 
 
@@ -17,7 +16,7 @@ describe("Validate Middleware", () => {
 
         it('should throw an error if given method is undefined or is not a string', () => {
             const expected = Error;
-            assert.throws(() => Validate(2), expected);
+            assert.throws(() => Validate(2, validations), expected);
             assert.throws(() => Validate(), expected);
         });
 
