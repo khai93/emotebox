@@ -30,7 +30,10 @@ BotController.createEmoji = async (guild_id, emote_id) => {
         const Emote = (await EmoteService.getById(emote_id))[0];
         const Guild = await BotService.getGuildById(guild_id);
         const file = await S3Controller.retrieveFile(Emote.imageKey);
-        console.log(file);
+        
+        // increment installs on emote
+        const increment = await EmoteService.incrementInstallsById(emote_id);
+
         return BotService.createEmoji(Guild, file.Body, Emote.name);
     } catch (e) {
         throw e;

@@ -3,13 +3,15 @@ import { Avatar } from "../avatar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faBell } from "@fortawesome/free-solid-svg-icons"
 import { Link } from 'react-router-dom';
+import { SERVER_URL } from '../../../api';
 import logo from '../../../assets/logo.svg';
 import "./navbar.css"
 
 function Navbar(props) {
     const userAvatar = props.userAvatar;
 
-    const logoutUrl = process.env.BASE_URL + "/api/auth/signout";
+    const logoutUrl = SERVER_URL + "/api/auth/signout";
+    const githubUrl = "https://github.com/khai93/emotebox";
 
     return (
         <nav>
@@ -30,10 +32,7 @@ function Navbar(props) {
                 <li className="navbar__item navbar__avatar">
                     <Avatar userAvatar={userAvatar}></Avatar>
                     <div className="navbar__dropdownContent">
-                        <Link className="navbar__dropdownLink" to="/settings">
-                            Account Settings
-                        </Link>
-                        <a href={logoutUrl} className="navbar__dropdownLink">
+                        <a href="#" onClick={()=>{window.location.href = logoutUrl}} className="navbar__dropdownLink">
                             Log Out
                         </a>
                     </div>

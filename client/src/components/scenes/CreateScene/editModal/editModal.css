@@ -50,7 +50,7 @@
     height: 100%;
     background-color: var(--purple);
     color: white;
-    right: 56px;
+    right: 50px;
     font-size: 16px;
     width: 75px;
     cursor: pointer;
@@ -82,7 +82,7 @@
 
 .editModal__deleteBtn {
     border: none;
-    background-color: maroon;
+    background-color: #dc322f;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;

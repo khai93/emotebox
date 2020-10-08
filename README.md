@@ -27,8 +27,8 @@ Emotebox is an emoji manager for Discord. Easily manage, add, or create emojis f
 | `AWS_BUCKET_NAME`       | **Required.** AWS bucket name (default: emotebox)                 |
 | `DISCORD_CLIENT_SECRET` | **Required.** Discord Bot Client Secret                           |
 | `DISCORD_CLIENT_ID`     | **Required.** Discord Bot Client ID                               |
-| `PUBLIC_URL`            | **Development Var.** React URL (default: localhost:3000) |
-| `BASE_URL`              | **Development Var.** API URL (default: localhost:5000)   |
+| `PUBLIC_URL`            |  React URL (default: localhost:3000) |
+| `SERVER_URL`              |  API URL (default: localhost:5000)   |
 | `PORT`                  | Serverhost port (default: 5000)                                   |
 
 ## Setup

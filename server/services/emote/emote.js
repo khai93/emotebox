@@ -73,7 +73,15 @@ EmoteService.removeTag = (id, tag) => EmoteModel.findOneAndUpdate({_id: id}, { "
 /**
  * Deletes an emote by its document id
  * @param {string} id - mongoDb document id
+ * @returns {Promise<Document[]>}
  */
 EmoteService.deleteOneById = (id) => EmoteModel.deleteOne({ _id: id }).exec()
+
+/**
+ * Increment installs in an emote
+ * @param {string} id - mongoDb document id
+ * @returns {Promise<Document[]>}
+ */
+EmoteService.incrementInstallsById = (id) => EmoteModel.findOneAndUpdate({_id: id}, {$inc: {'installs': 1}}).exec()
 
 module.exports = EmoteService;

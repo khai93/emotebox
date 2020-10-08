@@ -10,8 +10,9 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
+    "test:client": "cd client && yarn test && cd ..",
     "test:server": "mocha ./server/**/**/*.test.js",
-    "test": "yarn test:server",
+    "test": "yarn test:server && yarn test:client",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "dev:server": "cd client && yarn build && cd .. && yarn start",
     "start": "node server/server.js",
@@ -43,8 +44,10 @@
     "rand-token": "^1.0.1",
     "react-images-upload-demo": "https://github.com/khai93/react-images-upload.git#fix/save-state",
     "react-modal": "^3.11.2",
+    "react-progress-button": "^5.1.0",
     "react-router-dom": "^5.2.0",
     "react-tabs": "^3.1.1",
+    "react-test-renderer": "^16.13.1",
     "sinon": "^9.1.0"
   },
   "devDependencies": {

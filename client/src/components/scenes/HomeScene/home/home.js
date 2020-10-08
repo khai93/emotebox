@@ -1,35 +1,56 @@
 import React, { useState, useEffect } from 'react'
 import { DiscordHelper, ApiHelper } from "../../../../helpers"
-import {NavBar, SearchBar} from '../../../shared'
+import {NavBar, SearchBar, ProgressButton} from '../../../shared'
 import { TagList } from '../tagList';
 import { SearchResultList  } from "../searchResultList"
 import { AddModal } from "../addModal"
 
 import './home.css'
 
-
 function Home(props) { 
     const user = props.user;
 
+    const [startAt, setStartAt] = useState(0);
     const [results, setResults] = useState([]);
     const [addModalIsOpen, setIsOpen] = useState(false)
     const [addEmote, setAddEmoteState] = useState({});
-    
+    const [searchInput, setSearchInput] = useState("Emote");
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
     
     const handleSearch = (e, inputValue) => {
-        e.preventDefault();
-        fetchSearchData(inputValue);
+        if (e) {
+            e.preventDefault();
+        }
+        
+        setStartAt(0);
+        setResults([]);
+        fetchSearchData(inputValue, 0, []);
     }
 
-    const fetchSearchData = async (input) => {
+    const fetchSearchData = async (input, startAtVar, resultsVar) => {
+        startAtVar = startAtVar || startAt;
+        resultsVar = resultsVar || results;
+
+        if (input) {
+            setSearchInput(input);
+        }
+
         if (!input.replace(/\s/g,''))
             return;
 
-        const emotes = await ApiHelper.searchEmotesByText(25, 0, input);
+        const fetched = await ApiHelper.searchEmotesByText(25, startAtVar*25, input);
+        
+        setStartAt(startAtVar);
+        setResults(resultsVar);
+            
+        const emotes = [...resultsVar, ...fetched];
 
-        setResults(emotes.sort((a, b) => a.installs - b.installs))
+        setResults(emotes.sort((a, b) => b.installs - a.installs));
+    }
+
+    const fetchSearchInputData = (startAtVar) => {
+        return fetchSearchData(searchInput, startAtVar);
     }
 
     function openModal() {
@@ -41,18 +62,49 @@ function Home(props) {
     }
 
     const setAddEmote = (emote) => {
-        console.log("hi");
         setAddEmoteState(emote);
         openModal();
     }
 
+    const showMoreEmotes = () => {
+        setStartAt(startAt+1);
+        fetchSearchInputData(startAt+1);
+    }
+
+    const isBottom = (el) => {
+        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
+
+    const trackScrolling = () => {
+        const listElement = document.getElementsByClassName('searchResultList__ctn')[0];
+        if (isBottom(listElement)) {
+            showMoreEmotes();
+            document.removeEventListener('scroll', trackScrolling);
+        }
+    }
+
+    useEffect(() => {
+        fetchSearchInputData();
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener("scroll", trackScrolling);
+
+        return function cleanup() {
+            document.removeEventListener('scroll', trackScrolling);
+        }
+    });
+
+    
+
     return (
-        <div className="home__main">
+        <div id="home__main" className="home__main">
             <NavBar userAvatar={userAvatar} />
             <SearchBar handleSearch={handleSearch}></SearchBar>
-            <TagList onTagClick={fetchSearchData}/>
+            <TagList onTagClick={(input) => {fetchSearchData(input, 0, [])}}/>
             <SearchResultList resultsData={results} setAddEmote={setAddEmote}></SearchResultList>
-            <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen}/>
+            <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen} fetchSearchData={fetchSearchInputData} setStartAt={setStartAt}/>
+                         
         </div>
     )
 }

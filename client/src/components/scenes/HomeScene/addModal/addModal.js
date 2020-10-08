@@ -3,6 +3,8 @@ import Modal from 'react-modal'
 import { ApiHelper } from '../../../../helpers'
 import { Tag } from '../../../shared'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import 'react-tabs/style/react-tabs.css';
 
 import './addModal.css'
@@ -15,6 +17,8 @@ function AddModal(props) {
 
     const closeModal = props.closeModal;
     const addModalIsOpen = props.addModalIsOpen;
+    const fetchSearchData = props.fetchSearchData;
+    const setStartAt = props.setStartAt;
     let emoteData = props.emoteData;
 
     let discordBotInviteLink;
@@ -35,7 +39,7 @@ function AddModal(props) {
     }
 
     serverOptionsElements.push((
-        <option onClick={() => openInviteLink()}> -- Connect a new Server -- </option>
+        <option onClick={() => openInviteLink()} key="addServer"> -- Connect a new Server -- </option>
     ))
 
     const tagsElements = tags.map(e => (
@@ -54,6 +58,7 @@ function AddModal(props) {
         const selectedGuild = guildOpts.options[guildOpts.selectedIndex].value;
         const create = await ApiHelper.createEmojiInGuild(selectedGuild, emoteData._id);
         closeModal();
+        fetchSearchData();
     }
 
     useEffect(() => {
@@ -73,7 +78,7 @@ function AddModal(props) {
             contentLabel="Edit Modal"
         >
             <div className="addModal__exit">
-                <button className="addModal_exitBtn" onClick={closeModal}>X</button>
+                <button className="addModal_exitBtn" onClick={closeModal}><FontAwesomeIcon icon={faTimesCircle} /></button>
             </div>
             <Tabs className="addModal__tabs">
                 <TabList>
@@ -90,7 +95,7 @@ function AddModal(props) {
                     <button onClick={addEmote} className="addModal__submitBtn">Add Emote</button>
                 </TabPanel>
                 <TabPanel>
-                    <h3>{emoteData.name} has been added {emoteData.installs} times!</h3>
+                    <p>{emoteData.name} has been added {emoteData.installs} times!</p>
                     <h2>Tags</h2>
                     { tagsElements }
 

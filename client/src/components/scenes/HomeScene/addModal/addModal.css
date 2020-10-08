@@ -21,13 +21,15 @@
 }
 
 .addModal__exit {
-    text-align:right;
+    text-align: right;
 }
 
 .addModal_exitBtn {
     color: white;
     background-color: transparent;
-    border: 0.5px solid white;
+    border: 0px solid white;
+    border-radius: 100px;
+    font-size: 20px;
     cursor: pointer;
 }
 
@@ -46,14 +48,14 @@
 
 .addModal__submitBtn {
     display: inline-block;
-    padding: 8px 30px;
-    margin: 10px 20px;
-    border-radius: 5px;
+    padding: 8px 20px;
+    margin: 5px 20px;
+    border-radius: 2px;
     border: none;
     height: 100%;
     background-color: var(--purple);
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     transition-duration: 0.1s;
 }
@@ -73,17 +75,16 @@
     cursor: default;
 }
 
-.addModal__tagBtn {
-    position: absolute;
-    right: 7px;
+.addModal__tag {
     border-radius: 50px;
+    margin: 5px 5px;;
     cursor: pointer;
     border: none;
 }
 
 .addModal__deleteBtn {
     border: none;
-    background-color: maroon;
+    background-color: #dc322f;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -97,8 +98,12 @@
 
 .addModal select {
     border: none;
-    margin: 10px 0;
+    margin: 5px 0 10px 0;
     padding: 8px 15px;
+}
+
+.addModal legend {
+    font-size: 16px;
 }
 
 
