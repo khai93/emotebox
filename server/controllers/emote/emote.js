@@ -17,7 +17,7 @@ EmoteController.searchByText = (query) => {
         const startAt = parseInt(query.startAt) || 0;
         const searchTerm = query.searchTerm;
 
-        return EmoteService.searchByText(searchTerm, startAt, limit);
+        return EmoteService.searchByText(searchTerm, startAt, limit, true);
     } catch (e) {
         throw e;
     }

@@ -29,7 +29,7 @@ function AddModal(props) {
 
     fetchDiscordInviteLink();
 
-    const serverOptionsElements = connectedServers.map(server => (
+    let serverOptionsElements = connectedServers.map(server => (
         <option value={server.id} key={server.id}>{server.name}</option>
     ));
     
@@ -42,15 +42,18 @@ function AddModal(props) {
         <option onClick={() => openInviteLink()} key="addServer"> -- Connect a new Server -- </option>
     ))
 
-    const tagsElements = tags.map(e => (
+    const tagsElements = tags.map(e => e ? (
         <div className="addModal__tagCtn" key={e}>
             <Tag className="addModal__tag" tagName={e}></Tag>
         </div>
-    ))
+    ) : undefined)
 
     const fetchConnectedServers = async () => {
         const servers = await ApiHelper.getDiscordConnectedServers();
-        setConnectedServers(servers);
+
+        if (servers) {
+            setConnectedServers(servers);
+        }
     }
 
     const addEmote = async () => {

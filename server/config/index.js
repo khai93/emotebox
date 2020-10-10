@@ -6,10 +6,9 @@ if (env.error) {
 
 const path = require('path');
 
-
 module.exports = {
     // PORT
-    port: parseInt(process.env.PORT, 10) || 4000,
+    port: parseInt(process.env.PORT, 10) || 3000,
 
     // API configs
    
