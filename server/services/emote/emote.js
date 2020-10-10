@@ -24,7 +24,7 @@ EmoteService.getById = (id) => EmoteModel.find({ _id: id }).exec();
  * @param {string} name 
  * @returns {Promise<Document[]>}
  */
-EmoteService.searchByText = (string, startAt, limit) => EmoteModel.find({$text: { $search: string}}).skip(startAt).limit(limit).exec();
+EmoteService.searchByText = (string, startAt, limit, sortByInstalls) => EmoteModel.find({$text: { $search: string}}).sort(sortByInstalls ? { installs: -1 } : null).skip(startAt).limit(limit).exec();
 
 /**
  * Creates a new emote

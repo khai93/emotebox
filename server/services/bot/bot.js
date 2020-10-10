@@ -19,7 +19,14 @@ BotService.load = function(client) {
  * @returns {Promise<Array<Guild>>}
  */
 BotService.getUserConnectedGuilds = function(user) {
-    return Promise.resolve(this.client.guilds.cache.filter(guild => guild.members.cache.find(member => member.id === user.id).hasPermission(1073741824)));
+    return Promise.resolve(
+        this.client.guilds.cache.filter(guild => {
+            const userFound = guild.members.cache.find(member => member.id === user.id);
+            return (
+                userFound ? userFound.hasPermission(1073741824) : []
+            );
+        })
+    )
 }
 
 /**

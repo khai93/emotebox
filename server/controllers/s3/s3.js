@@ -36,9 +36,16 @@ S3Controller.retrieveImage = (filename, res) => {
         try {
             const file = await S3Controller.retrieveFile(filename);
 
+            // Add Cache Headers
+            res.set({
+                "Cache-Control": "public, max-age=86400",
+                "Expires": new Date(Date.now() + 86400000).toUTCString()
+            });
+
+            // Write the image to body
             res.write(file.Body, 'binary');
+
             res.end(null, 'binary');
-        
         } catch(e) {
             reject(e);
         }

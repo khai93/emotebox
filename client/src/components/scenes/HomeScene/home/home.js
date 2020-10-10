@@ -22,9 +22,7 @@ function Home(props) {
         if (e) {
             e.preventDefault();
         }
-        
-        setStartAt(0);
-        setResults([]);
+
         fetchSearchData(inputValue, 0, []);
     }
 
@@ -46,7 +44,7 @@ function Home(props) {
             
         const emotes = [...resultsVar, ...fetched];
 
-        setResults(emotes.sort((a, b) => b.installs - a.installs));
+        setResults(emotes);
     }
 
     const fetchSearchInputData = (startAtVar) => {
@@ -95,16 +93,16 @@ function Home(props) {
         }
     });
 
-    
-
     return (
         <div id="home__main" className="home__main">
             <NavBar userAvatar={userAvatar} />
+            {
+                searchInput != "Emote" ? <button id="home__resetBtn" className="home__resetBtn" onClick={(e) => {handleSearch(e, "Emote")}}>Reset search items</button> : null
+            }
             <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList onTagClick={(input) => {fetchSearchData(input, 0, [])}}/>
             <SearchResultList resultsData={results} setAddEmote={setAddEmote}></SearchResultList>
             <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen} fetchSearchData={fetchSearchInputData} setStartAt={setStartAt}/>
-                         
         </div>
     )
 }
