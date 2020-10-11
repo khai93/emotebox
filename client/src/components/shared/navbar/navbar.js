@@ -3,7 +3,7 @@ import { Avatar } from "../avatar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faBell } from "@fortawesome/free-solid-svg-icons"
 import { Link } from 'react-router-dom';
-import { SERVER_URL } from '../../../api';
+const { SERVER_URL } = require("../../../../api");
 import logo from '../../../assets/logo.svg';
 import "./navbar.css"
 
