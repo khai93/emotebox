@@ -28,10 +28,7 @@ function Home(props) {
         fetchSearchData(inputValue, 0, []);
     }
 
-    const fetchSearchData = async (input, startAtVar, resultsVar) => {
-        startAtVar = startAtVar || startAt;
-        resultsVar = resultsVar || results;
-
+    const fetchSearchData = async (input, startAtVar = startAt, resultsVar = results) => {
         if (input) {
             setSearchInput(input);
         }
@@ -101,7 +98,9 @@ function Home(props) {
         <div id="home__main" className="home__main">
             <NavBar userAvatar={userAvatar} />
             {
-                searchInput != "Emote" ? <button id="home__resetBtn" className="home__resetBtn" onClick={(e) => {handleSearch(e, "Emote")}}>Reset search items</button> : null
+                searchInput != "Emote" ? (
+                    <button id="home__resetBtn" className="home__resetBtn" onClick={(e) => {handleSearch(e, "Emote")}}>Reset search items</button>
+                ) : null
             }
             <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList onTagClick={(input) => {fetchSearchData(input, 0, [])}}/>
