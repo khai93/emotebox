@@ -9,12 +9,12 @@ module.exports = async (app) => {
     route.get("/discord", passport.authenticate('discord', {scope: config.discord.scopes, prompt: config.discord.prompt}), ()=>{});
     route.get("/discord-callback", 
         passport.authenticate('discord', {failureRedirect: config.api.publicURL + '/login'}), (req, res) => {
-            res.redirect(config.api.publicURL + "/");
+            res.redirect(new URL("/", config.api.publicURL));
         }
     );
     route.get("/signout", function(req, res) {
         req.logout();
-        res.redirect(config.api.publicURL + "/login");
+        res.redirect(new URL("/login", config.api.publicURL));
     });
     route.get("/user", CheckAuth, (req, res) => {
         res.json(req.user);
