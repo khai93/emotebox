@@ -14,3 +14,7 @@ body {
   font-family: sans-serif;
   background-color: var(--lightdark);
 }
+
+.purple-color {
+  color: var(--purple);
+}

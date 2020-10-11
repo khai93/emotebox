@@ -89,7 +89,7 @@ function AddModal(props) {
                     <Tab>Info</Tab>
                 </TabList>
                 <TabPanel>
-                    <h2>Add {emoteData.name} to Server</h2>
+                    <h2>Add <span class="purple-color">{emoteData.name}</span> to Server</h2>
                     <legend>Select Server</legend>
                     <select id="addModal__serversOpts">
                         { serverOptionsElements }
@@ -98,7 +98,7 @@ function AddModal(props) {
                     <button onClick={addEmote} className="addModal__submitBtn">Add Emote</button>
                 </TabPanel>
                 <TabPanel>
-                    <p>{emoteData.name} has been added {emoteData.installs} times!</p>
+                    <p><span class="purple-color">{emoteData.name}</span> has been added {emoteData.installs} times!</p>
                     <h2>Tags</h2>
                     { tagsElements }
 
