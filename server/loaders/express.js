@@ -27,7 +27,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new Strategy({
   clientID: config.discord.clientID,
   clientSecret: config.discord.clientSecret,
-  callbackURL: config.api.baseURL + config.api.prefix + "/auth/discord-callback",
+  callbackURL: new URL(config.api.prefix, config.api.baseURL) + "/auth/discord-callback",
   scope: config.discord.scopes,
   prompt: config.discord.prompt
 }, function(accessToken, refreshToken, profile, done) {
