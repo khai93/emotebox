@@ -77,7 +77,7 @@ function Home(props) {
         const listElement = document.getElementsByClassName('searchResultList__ctn')[0];
         if (isBottom(listElement)) {
             showMoreEmotes();
-            document.removeEventListener('scroll', trackScrolling);
+            window.removeEventListener('scroll', trackScrolling);
         }
     }
 
@@ -86,10 +86,8 @@ function Home(props) {
     }, []);
 
     useEffect(() => {
-        document.addEventListener("scroll", trackScrolling);
-
         return function cleanup() {
-            document.removeEventListener('scroll', trackScrolling);
+            window.removeEventListener('scroll', trackScrolling);
         }
     });
 
