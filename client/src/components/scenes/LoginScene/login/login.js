@@ -10,7 +10,7 @@ import { SERVER_URL } from "../../../../api/api"
 function Login() {
 
     const clickHandler = () => {
-        window.location.href = SERVER_URL + "/api/auth/discord";
+        window.location.href = new URL("/api/auth/discord", SERVER_URL);
     }
 
     return (

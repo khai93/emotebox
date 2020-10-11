@@ -9,7 +9,7 @@ import "./navbar.css"
 
 function Navbar(props) {
     const userAvatar = props.userAvatar;
-    const logoutUrl = SERVER_URL + "/api/auth/signout";
+    const logoutUrl = new URL("/api/auth/signout", SERVER_URL);
 
     return (
         <nav>
