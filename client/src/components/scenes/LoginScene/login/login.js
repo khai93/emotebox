@@ -1,13 +1,13 @@
 import React from 'react';
 
 import logo from '../../../../assets/logo.svg';
-import { SERVER_URL } from '../../../../api';
+
 import './login.css';
 
 function Login() {
 
     const clickHandler = () => {
-        window.location.replace(SERVER_URL + "/api/auth/discord");
+        window.location = window.location.protocol + "//" + window.location.host + "/api/auth/discord";
     }
 
     return (
