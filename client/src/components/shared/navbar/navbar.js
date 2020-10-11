@@ -3,14 +3,14 @@ import { Avatar } from "../avatar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faBell } from "@fortawesome/free-solid-svg-icons"
 import { Link } from 'react-router-dom';
-const { SERVER_URL } = require("../../../api");
+import { SERVER_URL } from '../../../api/api';
 import logo from '../../../assets/logo.svg';
 import "./navbar.css"
 
 function Navbar(props) {
     const userAvatar = props.userAvatar;
 
-    const logoutUrl = SERVER_URL + "/api/auth/signout";
+    const logoutUrl = `${SERVER_URL}/api/auth/signout`;
     const githubUrl = "https://github.com/khai93/emotebox";
 
     return (
