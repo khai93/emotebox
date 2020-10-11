@@ -7,6 +7,7 @@ const config = require("../config")
 const Strategy = require("passport-discord").Strategy;
 const session = require('express-session');
 const mongoose = require('mongoose');
+const express = require('express');
 const MongoStore = require('connect-mongo')(session);
 
 const passport = require("passport");
