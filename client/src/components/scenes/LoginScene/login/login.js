@@ -7,7 +7,7 @@ import './login.css';
 function Login() {
 
     const clickHandler = () => {
-        window.location.href = SERVER_URL + "/api/auth/discord";
+        window.location.replace(SERVER_URL + "/api/auth/discord");
     }
 
     return (
