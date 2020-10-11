@@ -9,9 +9,7 @@ import "./navbar.css"
 
 function Navbar(props) {
     const userAvatar = props.userAvatar;
-
-    const logoutUrl = `${SERVER_URL}/api/auth/signout`;
-    const githubUrl = "https://github.com/khai93/emotebox";
+    const logoutUrl = SERVER_URL + "/api/auth/signout";
 
     return (
         <nav>
@@ -32,7 +30,7 @@ function Navbar(props) {
                 <li className="navbar__item navbar__avatar">
                     <Avatar userAvatar={userAvatar}></Avatar>
                     <div className="navbar__dropdownContent">
-                        <a href="#" onClick={()=>{window.location.href = logoutUrl}} className="navbar__dropdownLink">
+                        <a href={logoutUrl} className="navbar__dropdownLink">
                             Log Out
                         </a>
                     </div>
