@@ -4,6 +4,7 @@ import {NavBar, SearchBar, ProgressButton} from '../../../shared'
 import { TagList } from '../tagList';
 import { SearchResultList  } from "../searchResultList"
 import { AddModal } from "../addModal"
+import { BallBeat } from 'react-pure-loaders';
 
 import './home.css'
 
@@ -15,6 +16,7 @@ function Home(props) {
     const [addModalIsOpen, setIsOpen] = useState(false)
     const [addEmote, setAddEmoteState] = useState({});
     const [searchInput, setSearchInput] = useState("Emote");
+    const [loadingMore, setLoadingMore] = useState(false);
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
     
@@ -64,13 +66,14 @@ function Home(props) {
         openModal();
     }
 
-    const showMoreEmotes = () => {
+    const showMoreEmotes = async () => {
         setStartAt(startAt+1);
-        fetchSearchInputData(startAt+1);
+        await fetchSearchInputData(startAt+1);
+        setLoadingMore(false);
     }
 
     const isBottom = (el) => {
-        return el.getBoundingClientRect().bottom <= window.innerHeight;
+        return el.getBoundingClientRect().bottom <= window.innerHeight + (loadingMore ? -100 : 5);
     }
 
     const trackScrolling = () => {
@@ -78,6 +81,7 @@ function Home(props) {
         if (isBottom(listElement)) {
             showMoreEmotes();
             window.removeEventListener('scroll', trackScrolling);
+            setLoadingMore(true);
         }
     }
 
@@ -86,6 +90,8 @@ function Home(props) {
     }, []);
 
     useEffect(() => {
+        window.addEventListener("scroll", trackScrolling);
+
         return function cleanup() {
             window.removeEventListener('scroll', trackScrolling);
         }
@@ -101,6 +107,10 @@ function Home(props) {
             <TagList onTagClick={(input) => {fetchSearchData(input, 0, [])}}/>
             <SearchResultList resultsData={results} setAddEmote={setAddEmote}></SearchResultList>
             <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen} fetchSearchData={fetchSearchInputData} setStartAt={setStartAt}/>
+            <BallBeat
+                color={'var(--purple)'}
+                loading={loadingMore}
+            />
         </div>
     )
 }

@@ -19,6 +19,7 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.35",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
@@ -49,6 +50,7 @@
     "react-images-upload-demo": "https://github.com/khai93/react-images-upload.git#fix/save-state",
     "react-modal": "^3.11.2",
     "react-progress-button": "^5.1.0",
+    "react-pure-loaders": "^3.0.1",
     "react-router-dom": "^5.2.0",
     "react-tabs": "^3.1.1",
     "react-test-renderer": "^16.13.1",
