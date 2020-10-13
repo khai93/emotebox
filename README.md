@@ -1,5 +1,7 @@
 ![tests](https://github.com/khai93/emotebox/workflows/test/badge.svg)
 
+# ARCHIVED 
+
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
