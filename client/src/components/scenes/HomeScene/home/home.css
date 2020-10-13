@@ -9,12 +9,12 @@
 .home__resetBtn {
     background-color: transparent;
     color: #dc322f;
-    position: absolute;
-    top: 122px;
-    left: 32%;
     font-size: 12px;
+    position: absolute;
+    top: 14%;
+    width: 30vw;
     border: none;
-    z-index: 100;
+    z-index: 2;
 }
 
 .home__resetBtn:hover {

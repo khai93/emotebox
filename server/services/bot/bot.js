@@ -23,7 +23,7 @@ BotService.getUserConnectedGuilds = function(user) {
         this.client.guilds.cache.filter(guild => {
             const userFound = guild.members.cache.find(member => member.id === user.id);
             return (
-                userFound ? userFound.hasPermission(1073741824) : []
+                userFound ? userFound.hasPermission(1073741824) : false
             );
         })
     )

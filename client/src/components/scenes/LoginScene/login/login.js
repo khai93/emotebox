@@ -4,10 +4,13 @@ import logo from '../../../../assets/logo.svg';
 
 import './login.css';
 
+import { SERVER_URL } from "../../../../api/api"
+
+
 function Login() {
 
     const clickHandler = () => {
-        window.location = window.location.protocol + "//" + window.location.hostname + ":5000/api/auth/discord";
+        window.location.href = new URL("/api/auth/discord", SERVER_URL);
     }
 
     return (

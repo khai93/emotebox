@@ -78,7 +78,7 @@ function EditModal(props) {
                     <Tab>Tags</Tab>
                 </TabList>
                 <TabPanel>
-                    <h2>Edit Name For {props.emoteData.name}</h2>
+                    <h2>Edit Name For <span className="purple-color">{props.emoteData.name}</span></h2>
                     <div className="editModal_inputCtn">
                         <input className="editModal__textInput" type="text" value={nameInput} onChange={e => setNameInput(e.target.value)}></input>
                         <button onClick={editName} className="editModal__submitBtn">Edit</button>
@@ -86,7 +86,7 @@ function EditModal(props) {
                     <button onClick={deleteEmote} className="editModal__deleteBtn">Delete Emote</button>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Edit Tags for {props.emoteData.name}</h2>
+                    <h2>Edit Tags for <span className="purple-color">{props.emoteData.name}</span></h2>
                     {tagsElements}
                     <div className="editModal_inputCtn">
                         <input className="editModal__textInput" type="text" value={tagInput} onChange={e => setTagInput(e.target.value)}></input>

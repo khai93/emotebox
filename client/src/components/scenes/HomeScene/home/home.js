@@ -4,6 +4,7 @@ import {NavBar, SearchBar, ProgressButton} from '../../../shared'
 import { TagList } from '../tagList';
 import { SearchResultList  } from "../searchResultList"
 import { AddModal } from "../addModal"
+import { BallBeat } from 'react-pure-loaders';
 
 import './home.css'
 
@@ -15,6 +16,7 @@ function Home(props) {
     const [addModalIsOpen, setIsOpen] = useState(false)
     const [addEmote, setAddEmoteState] = useState({});
     const [searchInput, setSearchInput] = useState("Emote");
+    const [loadingMore, setLoadingMore] = useState(false);
 
     const userAvatar = DiscordHelper.getAvatar(user.id, user.avatar)
     
@@ -26,10 +28,7 @@ function Home(props) {
         fetchSearchData(inputValue, 0, []);
     }
 
-    const fetchSearchData = async (input, startAtVar, resultsVar) => {
-        startAtVar = startAtVar || startAt;
-        resultsVar = resultsVar || results;
-
+    const fetchSearchData = async (input, startAtVar = startAt, resultsVar = results) => {
         if (input) {
             setSearchInput(input);
         }
@@ -64,20 +63,22 @@ function Home(props) {
         openModal();
     }
 
-    const showMoreEmotes = () => {
+    const showMoreEmotes = async () => {
         setStartAt(startAt+1);
-        fetchSearchInputData(startAt+1);
+        await fetchSearchInputData(startAt+1);
+        setLoadingMore(false);
     }
 
     const isBottom = (el) => {
-        return el.getBoundingClientRect().bottom <= window.innerHeight;
+        return el.getBoundingClientRect().bottom <= window.innerHeight + (loadingMore ? -100 : 5);
     }
 
     const trackScrolling = () => {
         const listElement = document.getElementsByClassName('searchResultList__ctn')[0];
         if (isBottom(listElement)) {
             showMoreEmotes();
-            document.removeEventListener('scroll', trackScrolling);
+            window.removeEventListener('scroll', trackScrolling);
+            setLoadingMore(true);
         }
     }
 
@@ -86,10 +87,10 @@ function Home(props) {
     }, []);
 
     useEffect(() => {
-        document.addEventListener("scroll", trackScrolling);
+        window.addEventListener("scroll", trackScrolling);
 
         return function cleanup() {
-            document.removeEventListener('scroll', trackScrolling);
+            window.removeEventListener('scroll', trackScrolling);
         }
     });
 
@@ -97,12 +98,18 @@ function Home(props) {
         <div id="home__main" className="home__main">
             <NavBar userAvatar={userAvatar} />
             {
-                searchInput != "Emote" ? <button id="home__resetBtn" className="home__resetBtn" onClick={(e) => {handleSearch(e, "Emote")}}>Reset search items</button> : null
+                searchInput != "Emote" ? (
+                    <button id="home__resetBtn" className="home__resetBtn" onClick={(e) => {handleSearch(e, "Emote")}}>Reset search items</button>
+                ) : null
             }
             <SearchBar handleSearch={handleSearch}></SearchBar>
             <TagList onTagClick={(input) => {fetchSearchData(input, 0, [])}}/>
             <SearchResultList resultsData={results} setAddEmote={setAddEmote}></SearchResultList>
             <AddModal emoteData={addEmote} closeModal={closeModal} addModalIsOpen={addModalIsOpen} fetchSearchData={fetchSearchInputData} setStartAt={setStartAt}/>
+            <BallBeat
+                color={'var(--purple)'}
+                loading={loadingMore}
+            />
         </div>
     )
 }
