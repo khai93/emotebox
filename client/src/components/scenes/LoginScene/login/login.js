@@ -10,7 +10,11 @@ import { SERVER_URL } from "../../../../api/api"
 function Login() {
 
     const clickHandler = () => {
-        window.location.href = new URL("/api/auth/discord", SERVER_URL);
+        const authUrl = new URL("/api/auth/discord", SERVER_URL);
+
+        fetch(authUrl, { method: 'POST', redirect: 'follow' })
+            .then(r => {})
+            .catch(err => console.error(err));
     }
 
     return (
