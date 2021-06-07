@@ -1,13 +1,14 @@
 const env = require('dotenv').config();
-const path = require('path');
 
 if (env.error) {
-    throw new Error("Couldn't find .env file")
+    throw env.error;
 }
+
+const path = require('path');
 
 module.exports = {
     // PORT
-    port: parseInt(process.env.PORT, 10) || 4000,
+    port: parseInt(process.env.PORT, 10) || 3000,
 
     // API configs
    
@@ -22,8 +23,9 @@ module.exports = {
 
     // Discord configs
     discord: {
-        clientID: process.env.DISCORD_CLIENT_ID || '749417956903092294',
-        clientSecret: process.env.DISCORD_CLIENT_SECRET || 'secret',
+        token: process.env.DISCORD_TOKEN,
+        clientID: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
         scopes: ['identify', 'guilds'],
         prompt: "consent",
     },
@@ -43,6 +45,9 @@ module.exports = {
         destination: "uploads/",
         filename: (req, file, cb) => {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        },
+        limits: {
+            fileSize: 256000
         }
     }
 }

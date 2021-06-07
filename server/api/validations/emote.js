@@ -1,5 +1,5 @@
 const { body, query, param, checkSchema } = require('express-validator');
-const { Validate } = require("../utils")
+const { Validate } = require("../middlewares")
 
 const MongoDbValidDocumentIdRegex = /^[0-9a-fA-F]{24}$/;
 

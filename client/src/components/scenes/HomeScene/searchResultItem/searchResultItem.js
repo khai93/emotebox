@@ -6,7 +6,7 @@ import "./searchResultItem.css"
 
 function SearchResultItem(props) {
     const item = props.itemData;
-
+    const setAddEmote = props.setAddEmote;
  
     const link =  ApiHelper.getImageFromKey(item.imageKey);
 
@@ -17,10 +17,14 @@ function SearchResultItem(props) {
         content = item.name;
         packClass = "searchResultItem__pack";
     }
+
+    function openAddModal() {
+        setAddEmote(item);
+    }
     
     return (
         <div className="searchResultItem__outter">
-            <button className={"searchResultItem__btn " + packClass}>
+            <button onClick={openAddModal} className={"searchResultItem__btn " + packClass}>
                 { 
                     content
                 }

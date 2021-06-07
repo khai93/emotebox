@@ -5,3 +5,19 @@
     justify-content: center;
     text-align: center;
 }
+
+.home__resetBtn {
+    background-color: transparent;
+    color: #dc322f;
+    font-size: 12px;
+    position: absolute;
+    top: 14%;
+    width: 30vw;
+    border: none;
+    z-index: 2;
+}
+
+.home__resetBtn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

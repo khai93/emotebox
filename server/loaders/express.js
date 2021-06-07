@@ -7,6 +7,7 @@ const config = require("../config")
 const Strategy = require("passport-discord").Strategy;
 const session = require('express-session');
 const mongoose = require('mongoose');
+const express = require('express');
 const MongoStore = require('connect-mongo')(session);
 
 const passport = require("passport");
@@ -26,7 +27,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new Strategy({
   clientID: config.discord.clientID,
   clientSecret: config.discord.clientSecret,
-  callbackURL: config.api.baseURL + config.api.prefix + "/auth/discord-callback",
+  callbackURL: new URL(config.api.prefix, config.api.baseURL) + "/auth/discord-callback",
   scope: config.discord.scopes,
   prompt: config.discord.prompt
 }, function(accessToken, refreshToken, profile, done) {
@@ -42,8 +43,8 @@ module.exports = async (app) => {
   app.enable('trust proxy');
 
   app.use(cors());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
   app.use(session({
     secret: config.authSecret,
@@ -59,11 +60,11 @@ module.exports = async (app) => {
 
   if (process.env.NODE_ENV === 'production') {
     // Serve any static files
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.use(express.static(path.join(__dirname, '../../client/build')));
   
     // Handle React routing, return all requests to React app
     app.get('*', function(req, res) {
-      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+      res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
     });
   }
 
