@@ -12,9 +12,14 @@ function Login() {
     const clickHandler = () => {
         const authUrl = new URL("/api/auth/discord", SERVER_URL);
 
-        fetch(authUrl, { method: 'POST', redirect: 'follow' })
-            .then(r => {})
-            .catch(err => console.error(err));
+        const left = (window.screen.width / 2) - ((600 / 2) + 10);
+        const top = (window.screen.height / 2) - ((800 / 2) + 50);
+        
+        const name = 'facebook_login';
+        const specs = "width=600,height=800,resizable=yes,left="
+        + left + ",top=" + top + ",screenX=" + left + ",screenY="
+        + top + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no";
+        window.open(authUrl.toString(), name, specs);
     }
 
     return (

@@ -8,7 +8,8 @@ import {
 import {Home} from "../scenes/HomeScene/home";
 import {Login} from "../scenes/LoginScene/login";
 import {Create} from "../scenes/CreateScene/create";
-import {AuthCheck} from "../shared"
+import {AuthCheck} from "../shared";
+import {AuthSuccess} from "../shared";
 
 function Routes() {
     return (
@@ -25,6 +26,9 @@ function Routes() {
                 </Route>
                 <Route exact path="/create">
                     <AuthCheck component={Create} />
+                </Route>
+                <Route exact path="/api/auth/discord/success">
+                    <AuthSuccess />
                 </Route>
             </Switch>
         </Router>
