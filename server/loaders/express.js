@@ -64,6 +64,9 @@ module.exports = async (app) => {
   if (process.env.NODE_ENV === 'production') {
     // Handle React routing, return all requests to React app
     app.get('*', function(req, res) {
+      if (req.baseUrl.startsWith("/api")) {
+        return;
+      }
       res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
     });
   }
