@@ -1,5 +1,6 @@
 ![tests](https://github.com/khai93/emotebox/workflows/test/badge.svg)
 
+[View Demo](https://emotebox.yeno.dev/login)
 # ARCHIVED 
 
 ## Table of contents
